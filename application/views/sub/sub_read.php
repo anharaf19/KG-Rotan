@@ -17,6 +17,7 @@
         <h2 style="margin-top:0px">Sub Read</h2>
         <table class="table">
 	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
+	    <tr><td>Jenis</td><td><?php echo $jenis; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('sub') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 </section>

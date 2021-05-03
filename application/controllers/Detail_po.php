@@ -7,7 +7,11 @@ class Detail_po extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
+        if ($this->session->userdata('login') <> 1) {
+            redirect(base_url('auth'));
+        }
         $this->load->model('Detail_po_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
@@ -15,6 +19,9 @@ class Detail_po extends CI_Controller
 
     public function index()
     {
+        if ($this->session->userdata('jabatan') <> 'SuperAdmin') {
+            redirect(base_url('tidakadaakses'));
+        }
         $this->load->view('detail_po/detail_po_list');
     }
 
@@ -99,52 +106,7 @@ class Detail_po extends CI_Controller
             redirect(site_url('detail_po'));
         }
     }
-    public function save()
-    {
-        // Ambil data yang dikirim dari form
-        $no_po = $_POST['no_po']; // Ambil data no_po dan masukkan ke variabel no_po
-        $no_item = $_POST['no_item']; // Ambil data no_item dan masukkan ke variabel no_item
-        $nama_item = $_POST['nama_item'];
-        $jenis_pack = $_POST['jenis_pack']; // Ambil data jenis_pack dan masukkan ke variabel jenis_pack
-        $total_order = $_POST['total_order']; // Ambil data total_order dan masukkan ke variabel total_order
-        $order_reff = $_POST['order_reff']; // Ambil data order_reff dan masukkan ke variabel order_reff
-        $pack = $_POST['pack']; // Ambil data pack dan masukkan ke variabel pack
-        $total_ctn = $_POST['total_ctn']; // Ambil data total_ctn dan masukkan ke variabel total_ctn
-        $cbm_ctn = $_POST['cbm_ctn']; // Ambil data cbm_ctn dan masukkan ke variabel cbm_ctn
-        $total_cbm = $_POST['total_cbm']; // Ambil data total_cbm dan masukkan ke variabel total_cbm
-        $harga_sub = $_POST['harga_sub'];
-        $harga_anyam = $_POST['harga_anyam'];
-        $data = array();
 
-        $index = 0; // Set index array awal dengan 0
-        foreach ($no_item as $datano_item) { // Kita buat perulangan berdasarkan no_item sampai data terakhir
-            array_push($data, array(
-                'no_po' => $no_po[$index],
-                'no_item' => $datano_item,
-                'nama_item' => $nama_item[$index],
-                'jenis_pack' => $jenis_pack[$index],  // Ambil dan set data jenis_pack sesuai index array dari $index
-                'total_order' => $total_order[$index],  // Ambil dan set data total_order sesuai index array dari $index
-                'order_reff' => $order_reff[$index],  // Ambil dan set data order_reff sesuai index array dari $index
-                'pack' => $pack[$index],  // Ambil dan set data pack sesuai index array dari $index
-                'total_ctn' => $total_ctn[$index],  // Ambil dan set data total_ctn sesuai index array dari $index
-                'cbm_ctn' => $cbm_ctn[$index],  // Ambil dan set data cbm_ctn sesuai index array dari $index
-                'total_cbm' => $total_cbm[$index],  // Ambil dan set data total_cbm sesuai index array dari $index
-                'harga_sub' => $harga_sub[$index],
-                'harga_anyam' => $harga_anyam[$index],
-            ));
-
-            $index++;
-        }
-
-        $sql = $this->Detail_po_model->save_batch($data); // Panggil fungsi save_batch yang ada di model siswa (Detail_po_model.php)
-
-        // Cek apakah query insert nya sukses atau gagal
-        if ($sql) { // Jika sukses
-            echo "<script>alert('Data berhasil disimpan');window.location = '" . base_url('po') . "';</script>";
-        } else { // Jika gagal
-            echo "<script>alert('Data gagal disimpan');window.location = '" . base_url('detail_po/create') . "';</script>";
-        }
-    }
     public function update($id)
     {
         $row = $this->Detail_po_model->get_by_id($id);
@@ -281,10 +243,10 @@ class Detail_po extends CI_Controller
             xlsWriteLabel($tablebody, $kolombody++, $data->jenis_pack);
             xlsWriteNumber($tablebody, $kolombody++, $data->total_order);
             xlsWriteLabel($tablebody, $kolombody++, $data->order_reff);
-            xlsWriteNumber($tablebody, $kolombody++, $data->pack);
-            xlsWriteNumber($tablebody, $kolombody++, $data->total_ctn);
-            xlsWriteNumber($tablebody, $kolombody++, $data->cbm_ctn);
-            xlsWriteNumber($tablebody, $kolombody++, $data->total_cbm);
+            xlsWriteLabel($tablebody, $kolombody++, $data->pack);
+            xlsWriteLabel($tablebody, $kolombody++, $data->total_ctn);
+            xlsWriteLabel($tablebody, $kolombody++, $data->cbm_ctn);
+            xlsWriteLabel($tablebody, $kolombody++, $data->total_cbm);
             xlsWriteNumber($tablebody, $kolombody++, $data->harga_sub);
             xlsWriteNumber($tablebody, $kolombody++, $data->harga_anyam);
 
@@ -295,10 +257,56 @@ class Detail_po extends CI_Controller
         xlsEOF();
         exit();
     }
+    public function save()
+    {
+        // Ambil data yang dikirim dari form
+        $no_po = $_POST['no_po']; // Ambil data no_po dan masukkan ke variabel no_po
+        $no_item = $_POST['no_item']; // Ambil data no_item dan masukkan ke variabel no_item
+        $nama_item = $_POST['nama_item'];
+        $jenis_pack = $_POST['jenis_pack']; // Ambil data jenis_pack dan masukkan ke variabel jenis_pack
+        $total_order = $_POST['total_order']; // Ambil data total_order dan masukkan ke variabel total_order
+        $order_reff = $_POST['order_reff']; // Ambil data order_reff dan masukkan ke variabel order_reff
+        $pack = $_POST['pack']; // Ambil data pack dan masukkan ke variabel pack
+        $total_ctn = $_POST['total_ctn']; // Ambil data total_ctn dan masukkan ke variabel total_ctn
+        $cbm_ctn = $_POST['cbm_ctn']; // Ambil data cbm_ctn dan masukkan ke variabel cbm_ctn
+        $total_cbm = $_POST['total_cbm']; // Ambil data total_cbm dan masukkan ke variabel total_cbm
+        $harga_sub = $_POST['harga_sub'];
+        $harga_anyam = $_POST['harga_anyam'];
+        $data = array();
+
+        $index = 0; // Set index array awal dengan 0
+        foreach ($no_item as $datano_item) { // Kita buat perulangan berdasarkan no_item sampai data terakhir
+            array_push($data, array(
+                'no_po' => $no_po[$index],
+                'no_item' => $datano_item,
+                'nama_item' => $nama_item[$index],
+                'jenis_pack' => $jenis_pack[$index],  // Ambil dan set data jenis_pack sesuai index array dari $index
+                'total_order' => $total_order[$index],  // Ambil dan set data total_order sesuai index array dari $index
+                'order_reff' => $order_reff[$index],  // Ambil dan set data order_reff sesuai index array dari $index
+                'pack' => $pack[$index],  // Ambil dan set data pack sesuai index array dari $index
+                'total_ctn' => $total_ctn[$index],  // Ambil dan set data total_ctn sesuai index array dari $index
+                'cbm_ctn' => $cbm_ctn[$index],  // Ambil dan set data cbm_ctn sesuai index array dari $index
+                'total_cbm' => $total_cbm[$index],  // Ambil dan set data total_cbm sesuai index array dari $index
+                'harga_sub' => $harga_sub[$index],
+                'harga_anyam' => $harga_anyam[$index],
+            ));
+
+            $index++;
+        }
+
+        $sql = $this->Detail_po_model->save_batch($data); // Panggil fungsi save_batch yang ada di model siswa (Detail_po_model.php)
+
+        // Cek apakah query insert nya sukses atau gagal
+        if ($sql) { // Jika sukses
+            echo "<script>alert('Data berhasil disimpan');window.location = '" . base_url('po') . "';</script>";
+        } else { // Jika gagal
+            echo "<script>alert('Data gagal disimpan');window.location = '" . base_url('detail_po/create') . "';</script>";
+        }
+    }
 }
 
 /* End of file Detail_po.php */
 /* Location: ./application/controllers/Detail_po.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-09 22:26:42 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

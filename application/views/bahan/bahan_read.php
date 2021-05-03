@@ -17,9 +17,9 @@
         <h2 style="margin-top:0px">Bahan Read</h2>
         <table class="table">
 	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
-	    <tr><td>Jenis</td><td><?php echo $jenis; ?></td></tr>
 	    <tr><td>Total Kg</td><td><?php echo $total_kg; ?></td></tr>
 	    <tr><td>Total Ball</td><td><?php echo $total_ball; ?></td></tr>
+	    <tr><td>Ket</td><td><?php echo $ket; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('bahan') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 </section>

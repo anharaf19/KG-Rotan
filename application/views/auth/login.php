@@ -30,7 +30,7 @@
 
         <form action="<?php echo base_url('auth/masuk'); ?>" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="username" placeholder="Email">
+            <input type="text" class="form-control" name="username" placeholder="Username">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>

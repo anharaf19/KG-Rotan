@@ -30,7 +30,20 @@
 
     <!-- Main content -->
     <section class="content">
-
+        <div class="row">
+            <?php foreach ($lihatspk2 as $row) { ?>
+                <div class="col-md-3">
+                    <div class="card" style="width: 24rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row->no_spk; ?></h5>
+                            <p class="card-text">No Item :<?php echo $row->no_item; ?> </p>
+                            <p class="card-text"><?php echo $row->total_qty; ?> Item </p>
+                            <a href="<?php echo site_url('pabrikqc/addqty/' . $row->id) ?>" class="btn btn-primary">Hasil Qc</a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </section>
     <!-- /.content -->
 </div>

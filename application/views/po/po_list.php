@@ -35,17 +35,18 @@
                 <div class="col-md-8 text-right">
                     <?php echo anchor(site_url('po/create'), 'Create', 'class="btn btn-primary"'); ?>
                     <?php echo anchor(site_url('po/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                    <?php echo anchor(site_url('po/word'), 'Word', 'class="btn btn-primary"'); ?>
                 </div>
             </div>
             <table class="table table-bordered table-striped" id="mytable">
                 <thead>
                     <tr>
                         <th width="80px">No</th>
-                        <th>No PO</th>
+                        <th>No Po</th>
+
                         <th>Id Pembeli</th>
                         <th>Tgl Mulai</th>
                         <th>Tgl Selesai</th>
+                        <th>Ket</th>
                         <th width="200px">Action</th>
                     </tr>
                 </thead>
@@ -102,6 +103,8 @@
                         "data": "tgl_mulai"
                     }, {
                         "data": "tgl_selesai"
+                    }, {
+                        "data": "keterangan"
                     },
                     {
                         "data": "action",

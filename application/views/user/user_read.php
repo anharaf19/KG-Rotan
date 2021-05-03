@@ -16,6 +16,7 @@
     <section class="content">
         <h2 style="margin-top:0px">User Read</h2>
         <table class="table">
+	    <tr><td>Id Pabrik</td><td><?php echo $id_pabrik; ?></td></tr>
 	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
 	    <tr><td>Username</td><td><?php echo $username; ?></td></tr>
 	    <tr><td>Password</td><td><?php echo $password; ?></td></tr>

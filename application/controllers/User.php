@@ -7,6 +7,7 @@ class User extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
@@ -36,6 +37,7 @@ class User extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
+                'id_pabrik' => $row->id_pabrik,
                 'nama' => $row->nama,
                 'username' => $row->username,
                 'password' => $row->password,
@@ -54,10 +56,12 @@ class User extends CI_Controller
             'button' => 'Create',
             'action' => site_url('user/create_action'),
             'id' => set_value('id'),
+            'id_pabrik' => set_value('id_pabrik'),
             'nama' => set_value('nama'),
             'username' => set_value('username'),
             'password' => set_value('password'),
             'jabatan' => set_value('jabatan'),
+            'lihatpabrik' => $this->User_model->lihatpabrik()
         );
         $this->load->view('user/user_form', $data);
     }
@@ -69,12 +73,11 @@ class User extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $password = $this->input->post('password');
-            $pass = md5($password);
             $data = array(
+                'id_pabrik' => $this->input->post('id_pabrik', TRUE),
                 'nama' => $this->input->post('nama', TRUE),
                 'username' => $this->input->post('username', TRUE),
-                'password' => $pass,
+                'password' => md5($this->input->post('password', TRUE)),
                 'jabatan' => $this->input->post('jabatan', TRUE),
             );
 
@@ -93,10 +96,12 @@ class User extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('user/update_action'),
                 'id' => set_value('id', $row->id),
+                'id_pabrik' => set_value('id_pabrik', $row->id_pabrik),
                 'nama' => set_value('nama', $row->nama),
                 'username' => set_value('username', $row->username),
-                'password' => '',
+                'password' => set_value('password', $row->password),
                 'jabatan' => set_value('jabatan', $row->jabatan),
+                'lihatpabrik' => $this->User_model->lihatpabrik()
             );
             $this->load->view('user/user_form', $data);
         } else {
@@ -112,17 +117,17 @@ class User extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
         } else {
-
-
             $password = $this->input->post('password');
             $pass = md5($password);
             $dataupdatepassword = array(
                 'nama' => $this->input->post('nama', TRUE),
+                'id_pabrik' => $this->input->post('id_pabrik', TRUE),
                 'username' => $this->input->post('username', TRUE),
                 'password' => $pass,
                 'jabatan' => $this->input->post('jabatan', TRUE),
             );
             $datatidakupdatepassword = array(
+                'id_pabrik' => $this->input->post('id_pabrik', TRUE),
                 'nama' => $this->input->post('nama', TRUE),
                 'username' => $this->input->post('username', TRUE),
                 'jabatan' => $this->input->post('jabatan', TRUE),
@@ -153,11 +158,11 @@ class User extends CI_Controller
 
     public function _rules()
     {
+        $this->form_validation->set_rules('id_pabrik', 'id pabrik', 'trim|required');
         $this->form_validation->set_rules('nama', 'nama', 'trim|required');
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
         $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required');
-
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
@@ -184,6 +189,7 @@ class User extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Pabrik");
         xlsWriteLabel($tablehead, $kolomhead++, "Nama");
         xlsWriteLabel($tablehead, $kolomhead++, "Username");
         xlsWriteLabel($tablehead, $kolomhead++, "Password");
@@ -194,6 +200,7 @@ class User extends CI_Controller
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_pabrik);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama);
             xlsWriteLabel($tablebody, $kolombody++, $data->username);
             xlsWriteLabel($tablebody, $kolombody++, $data->password);
@@ -206,23 +213,10 @@ class User extends CI_Controller
         xlsEOF();
         exit();
     }
-
-    public function word()
-    {
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=user.doc");
-
-        $data = array(
-            'user_data' => $this->User_model->get_all(),
-            'start' => 0
-        );
-
-        $this->load->view('user/user_doc', $data);
-    }
 }
 
 /* End of file User.php */
 /* Location: ./application/controllers/User.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-03-19 11:59:24 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

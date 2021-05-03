@@ -133,7 +133,7 @@
                             '<input type="text" class="form-control" name="harga_sub[]" id="harga_sub" placeholder="Harga Sub" />' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<label for="int">Harga Anyam/label>' +
+                            '<label for="int">Harga Anyam</label>' +
                             '<input type="text" class="form-control" name="harga_anyam[]" id="harga_anyam" placeholder="Harga Anyam" />' +
                             '</div>');
 

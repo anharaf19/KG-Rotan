@@ -33,7 +33,6 @@
             <div class="col-md-8 text-right">
                 <?php echo anchor(site_url('pabrik/create'), 'Create', 'class="btn btn-primary"'); ?>
 		<?php echo anchor(site_url('pabrik/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-		<?php echo anchor(site_url('pabrik/word'), 'Word', 'class="btn btn-primary"'); ?>
 	    </div>
         </div>
         <table class="table table-bordered table-striped" id="mytable">
@@ -41,6 +40,7 @@
                 <tr>
                     <th width="80px">No</th>
 		    <th>Nama</th>
+		    <th>Ket</th>
 		    <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -88,7 +88,7 @@
                         {
                             "data": "id",
                             "orderable": false
-                        },{"data": "nama"},
+                        },{"data": "nama"},{"data": "ket"},
                         {
                             "data" : "action",
                             "orderable": false,

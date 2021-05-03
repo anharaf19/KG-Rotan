@@ -7,6 +7,7 @@ class Spk extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
@@ -36,10 +37,11 @@ class Spk extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
-                'id_po' => $row->id_po,
+                'no_spk' => $row->no_spk,
+                'id_po_pabrik' => $row->id_po_pabrik,
                 'id_sub' => $row->id_sub,
-                'id_pabrik' => $row->id_pabrik,
-                'tgl' => $row->tgl,
+                'tgl_mulai' => $row->tgl_mulai,
+                'tgl_selesai' => $row->tgl_selesai,
                 'status' => $row->status,
             );
             $this->load->view('spk/spk_read', $data);
@@ -55,11 +57,15 @@ class Spk extends CI_Controller
             'button' => 'Create',
             'action' => site_url('spk/create_action'),
             'id' => set_value('id'),
-            'id_po' => set_value('id_po'),
+            'no_spk' => set_value('no_spk'),
+            'id_po_pabrik' => set_value('id_po_pabrik'),
             'id_sub' => set_value('id_sub'),
-            'id_pabrik' => set_value('id_pabrik'),
-            'tgl' => set_value('tgl'),
+            'tgl_mulai' => set_value('tgl_mulai'),
+            'tgl_selesai' => set_value('tgl_selesai'),
             'status' => set_value('status'),
+
+            'lihatsub' => $this->Spk_model->lihatsub(),
+            'lihatpabrik' => $this->Spk_model->lihatpabrik($this->session->userdata('id_pabrik'))
         );
         $this->load->view('spk/spk_form', $data);
     }
@@ -72,16 +78,17 @@ class Spk extends CI_Controller
             $this->create();
         } else {
             $data = array(
-                'id_po' => $this->input->post('id_po', TRUE),
+                'no_spk' => $this->input->post('no_spk', TRUE),
+                'id_po_pabrik' => $this->input->post('id_po_pabrik', TRUE),
                 'id_sub' => $this->input->post('id_sub', TRUE),
-                'id_pabrik' => $this->input->post('id_pabrik', TRUE),
-                'tgl' => $this->input->post('tgl', TRUE),
+                'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
+                'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
                 'status' => $this->input->post('status', TRUE),
             );
 
             $this->Spk_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('spk'));
+            $this->load->view('detail_spk/detail_spk_formmulti', $data);
         }
     }
 
@@ -94,11 +101,15 @@ class Spk extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('spk/update_action'),
                 'id' => set_value('id', $row->id),
-                'id_po' => set_value('id_po', $row->id_po),
+                'no_spk' => set_value('no_spk', $row->no_spk),
+                'id_po_pabrik' => set_value('id_po_pabrik', $row->id_po_pabrik),
                 'id_sub' => set_value('id_sub', $row->id_sub),
-                'id_pabrik' => set_value('id_pabrik', $row->id_pabrik),
-                'tgl' => set_value('tgl', $row->tgl),
+                'tgl_mulai' => set_value('tgl_mulai', $row->tgl_mulai),
+                'tgl_selesai' => set_value('tgl_selesai', $row->tgl_selesai),
                 'status' => set_value('status', $row->status),
+
+                'lihatsub' => $this->Spk_model->lihatsub(),
+                'lihatpabrik' => $this->Spk_model->lihatpabrik($this->session->userdata('id_pabrik'))
             );
             $this->load->view('spk/spk_form', $data);
         } else {
@@ -115,10 +126,11 @@ class Spk extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-                'id_po' => $this->input->post('id_po', TRUE),
+                'no_spk' => $this->input->post('no_spk', TRUE),
+                'id_po_pabrik' => $this->input->post('id_po_pabrik', TRUE),
                 'id_sub' => $this->input->post('id_sub', TRUE),
-                'id_pabrik' => $this->input->post('id_pabrik', TRUE),
-                'tgl' => $this->input->post('tgl', TRUE),
+                'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
+                'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
                 'status' => $this->input->post('status', TRUE),
             );
 
@@ -144,10 +156,11 @@ class Spk extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('id_po', 'id po', 'trim|required');
+        $this->form_validation->set_rules('no_spk', 'no spk', 'trim|required');
+        $this->form_validation->set_rules('id_po_pabrik', 'id po pabrik', 'trim|required');
         $this->form_validation->set_rules('id_sub', 'id sub', 'trim|required');
-        $this->form_validation->set_rules('id_pabrik', 'id pabrik', 'trim|required');
-        $this->form_validation->set_rules('tgl', 'tgl', 'trim|required');
+        $this->form_validation->set_rules('tgl_mulai', 'tgl mulai', 'trim|required');
+        $this->form_validation->set_rules('tgl_selesai', 'tgl selesai', 'trim|required');
         $this->form_validation->set_rules('status', 'status', 'trim|required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
@@ -176,10 +189,11 @@ class Spk extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Po");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Spk");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Po Pabrik");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Sub");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Pabrik");
-        xlsWriteLabel($tablehead, $kolomhead++, "Tgl");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tgl Mulai");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tgl Selesai");
         xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
         foreach ($this->Spk_model->get_all() as $data) {
@@ -187,11 +201,12 @@ class Spk extends CI_Controller
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_po);
+            xlsWriteLabel($tablebody, $kolombody++, $data->no_spk);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_po_pabrik);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_sub);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_pabrik);
-            xlsWriteLabel($tablebody, $kolombody++, $data->tgl);
-            xlsWriteNumber($tablebody, $kolombody++, $data->status);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tgl_mulai);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tgl_selesai);
+            xlsWriteLabel($tablebody, $kolombody++, $data->status);
 
             $tablebody++;
             $nourut++;
@@ -205,5 +220,5 @@ class Spk extends CI_Controller
 /* End of file Spk.php */
 /* Location: ./application/controllers/Spk.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-09 22:10:44 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

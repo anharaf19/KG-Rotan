@@ -7,6 +7,7 @@ class Bahan_masuk extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
@@ -38,9 +39,11 @@ class Bahan_masuk extends CI_Controller
                 'id' => $row->id,
                 'id_bahan' => $row->id_bahan,
                 'tgl_masuk' => $row->tgl_masuk,
-                'ball' => $row->ball,
                 'kg' => $row->kg,
+                'ball' => $row->ball,
                 'asal_bahan' => $row->asal_bahan,
+                'ket' => $row->ket,
+
             );
             $this->load->view('bahan_masuk/bahan_masuk_read', $data);
         } else {
@@ -57,9 +60,10 @@ class Bahan_masuk extends CI_Controller
             'id' => set_value('id'),
             'id_bahan' => set_value('id_bahan'),
             'tgl_masuk' => set_value('tgl_masuk'),
-            'ball' => set_value('ball'),
             'kg' => set_value('kg'),
+            'ball' => set_value('ball'),
             'asal_bahan' => set_value('asal_bahan'),
+            'ket' => set_value('ket'),
             'lihatbahan' => $this->Bahan_masuk_model->lihatbahan()
         );
         $this->load->view('bahan_masuk/bahan_masuk_form', $data);
@@ -75,9 +79,10 @@ class Bahan_masuk extends CI_Controller
             $data = array(
                 'id_bahan' => $this->input->post('id_bahan', TRUE),
                 'tgl_masuk' => $this->input->post('tgl_masuk', TRUE),
-                'ball' => $this->input->post('ball', TRUE),
                 'kg' => $this->input->post('kg', TRUE),
+                'ball' => $this->input->post('ball', TRUE),
                 'asal_bahan' => $this->input->post('asal_bahan', TRUE),
+                'ket' => $this->input->post('ket', TRUE),
             );
 
             $this->Bahan_masuk_model->insert($data);
@@ -97,9 +102,10 @@ class Bahan_masuk extends CI_Controller
                 'id' => set_value('id', $row->id),
                 'id_bahan' => set_value('id_bahan', $row->id_bahan),
                 'tgl_masuk' => set_value('tgl_masuk', $row->tgl_masuk),
-                'ball' => set_value('ball', $row->ball),
                 'kg' => set_value('kg', $row->kg),
+                'ball' => set_value('ball', $row->ball),
                 'asal_bahan' => set_value('asal_bahan', $row->asal_bahan),
+                'ket' => set_value('ket', $row->ket),
                 'lihatbahan' => $this->Bahan_masuk_model->lihatbahan()
             );
             $this->load->view('bahan_masuk/bahan_masuk_form', $data);
@@ -119,9 +125,10 @@ class Bahan_masuk extends CI_Controller
             $data = array(
                 'id_bahan' => $this->input->post('id_bahan', TRUE),
                 'tgl_masuk' => $this->input->post('tgl_masuk', TRUE),
-                'ball' => $this->input->post('ball', TRUE),
                 'kg' => $this->input->post('kg', TRUE),
+                'ball' => $this->input->post('ball', TRUE),
                 'asal_bahan' => $this->input->post('asal_bahan', TRUE),
+                'ket' => $this->input->post('ket', TRUE),
             );
 
             $this->Bahan_masuk_model->update($this->input->post('id', TRUE), $data);
@@ -148,9 +155,10 @@ class Bahan_masuk extends CI_Controller
     {
         $this->form_validation->set_rules('id_bahan', 'id bahan', 'trim|required');
         $this->form_validation->set_rules('tgl_masuk', 'tgl masuk', 'trim|required');
-        $this->form_validation->set_rules('ball', 'ball', 'trim|required');
         $this->form_validation->set_rules('kg', 'kg', 'trim|required');
+        $this->form_validation->set_rules('ball', 'ball', 'trim|required');
         $this->form_validation->set_rules('asal_bahan', 'asal bahan', 'trim|required');
+        $this->form_validation->set_rules('ket', 'ket', 'trim|required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -180,9 +188,10 @@ class Bahan_masuk extends CI_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Bahan");
         xlsWriteLabel($tablehead, $kolomhead++, "Tgl Masuk");
-        xlsWriteLabel($tablehead, $kolomhead++, "Ball");
         xlsWriteLabel($tablehead, $kolomhead++, "Kg");
+        xlsWriteLabel($tablehead, $kolomhead++, "Ball");
         xlsWriteLabel($tablehead, $kolomhead++, "Asal Bahan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Ket");
 
         foreach ($this->Bahan_masuk_model->get_all() as $data) {
             $kolombody = 0;
@@ -191,9 +200,10 @@ class Bahan_masuk extends CI_Controller
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_bahan);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_masuk);
-            xlsWriteNumber($tablebody, $kolombody++, $data->ball);
             xlsWriteNumber($tablebody, $kolombody++, $data->kg);
+            xlsWriteNumber($tablebody, $kolombody++, $data->ball);
             xlsWriteLabel($tablebody, $kolombody++, $data->asal_bahan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->ket);
 
             $tablebody++;
             $nourut++;
@@ -202,23 +212,10 @@ class Bahan_masuk extends CI_Controller
         xlsEOF();
         exit();
     }
-
-    public function word()
-    {
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=bahan_masuk.doc");
-
-        $data = array(
-            'bahan_masuk_data' => $this->Bahan_masuk_model->get_all(),
-            'start' => 0
-        );
-
-        $this->load->view('bahan_masuk/bahan_masuk_doc', $data);
-    }
 }
 
 /* End of file Bahan_masuk.php */
 /* Location: ./application/controllers/Bahan_masuk.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-03-19 11:59:23 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

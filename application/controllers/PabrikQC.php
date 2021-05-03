@@ -25,12 +25,58 @@ class PabrikQC extends CI_Controller
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
         }
+        $this->load->model('Pabrikqc_model');
+        $this->load->library('form_validation');
     }
     public function index()
     {
         if ($this->session->userdata('jabatan') <> 'Pabrik') {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('pabrikqc/index.php');
+        $id_pabrik = $this->session->userdata('id_pabrik');
+        $data = array(
+            'lihatspk2' => $this->Pabrikqc_model->lihatspk2($id_pabrik)
+        );
+        $this->load->view('pabrikqc/index.php', $data);
+    }
+    public function addqty($id)
+    {
+        $rows = $this->Pabrikqc_model->lihatspkperid($id);
+        $dataw = array(
+            'id' => set_value('id', $rows->id),
+            'no_item' => set_value('no_item', $rows->no_item),
+            'no_spk' => set_value('no_spk', $rows->no_spk)
+        );
+
+        $this->load->view('pabrikqc/formqc', $dataw);
+    }
+    function add()
+    {
+        $id_detail_spk = $this->input->post('id_detail_spk');
+        $no_item = $this->input->post('no_item');
+        $no_spk = $this->input->post('no_spk');
+        $tgl_masuk = $this->input->post('tgl_masuk');
+        $qty = $this->input->post('qty');
+        $id_pabrik = $this->session->userdata('id_pabrik');
+        $data = array(
+            'id_detail_spk' => $id_detail_spk,
+            'id_pabrik' => $id_pabrik,
+            'no_item' => $no_item,
+            'no_spk' => $no_spk,
+            'tgl_masuk' => $tgl_masuk,
+            'qty' => $qty,
+            'status' => 'belum dibayar'
+
+        );
+        $this->Pabrikqc_model->input_data($data, 'qc');
+        redirect('pabrikqc');
+    }
+    function edit($id)
+    {
+        $where = array('id' => $id);
+
+        $data['user'] = $this->m_data->edit_data($where, 'user')->result();
+
+        $this->load->view('v_edit', $data);
     }
 }

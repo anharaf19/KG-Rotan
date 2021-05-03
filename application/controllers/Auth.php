@@ -11,8 +11,14 @@ class Auth extends CI_Controller
     }
     public function index()
     {
-        if ($this->session->userdata('login') == 1) {
+        if ($this->session->userdata('login') == 1 && $this->session->userdata('jabatan') == 'SuperAdmin') {
             redirect(base_url('welcome'));
+        } else if ($this->session->userdata('login') == 1 && $this->session->userdata('jabatan') == 'Admin') {
+            redirect(base_url('Admin'));
+        } else if ($this->session->userdata('login') == 1 && $this->session->userdata('jabatan') == 'Pabrik') {
+            redirect(base_url('pabrikqc'));
+        } else if ($this->session->userdata('login') == 1 && $this->session->userdata('jabatan') == 'Keuangan') {
+            redirect(base_url('keuangan'));
         }
         $this->load->library('session');
         $this->load->view('auth/login');
@@ -28,7 +34,7 @@ class Auth extends CI_Controller
         } else {
             $where = array(
                 'username' => $username,
-                'password' => $password,
+                'password' => $password
             );
             $cek = $this->Auth_model->GetDataLogin('user', $where);
             if (count($cek) > 0) {
@@ -36,9 +42,11 @@ class Auth extends CI_Controller
                     $data_session = array(
                         'login' => TRUE,
                         'id' => $cek->id,
+                        'id_pabrik' => $cek->id_pabrik,
                         'nama' => $cek->nama,
                         'username' => $cek->username,
-                        'jabatan' => $cek->jabatan
+                        'jabatan' => $cek->jabatan,
+                        'tgl' => date('Y-m-d')
                     );
                 }
                 $this->session->set_userdata($data_session);
@@ -52,7 +60,7 @@ class Auth extends CI_Controller
                     redirect(base_url('/keuangan'));
                 }
             } else {
-                $this->session->set_flashdata("pesan", "<div class='alert alert-danger' role='alert' fade>username atau Password anda salah</div>");
+                $this->session->set_flashdata("pesan", "<div class='alert alert-danger' role='alert' fade>Username atau Password anda salah</div>");
                 redirect(base_url('/auth'));
             }
         }

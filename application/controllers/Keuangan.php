@@ -25,12 +25,29 @@ class Keuangan extends CI_Controller
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
         }
+        $this->load->model('Keuangan_model');
     }
     public function index()
     {
         if ($this->session->userdata('jabatan') <> 'Keuangan') {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('keuangan/index.php');
+        $data = array(
+            'lihatiptgl' => $this->Keuangan_model->lihatiptgl($this->session->userdata('id_pabrik')),
+            'lihatqcbayar' => $this->Keuangan_model->lihatqcbayar()
+        );
+        $this->load->view('keuangan/index.php', $data);
+    }
+
+    public function bayar()
+    {
+
+        $status = 'Sudah Dibayar';
+        $data = array(
+            'status' => $status
+        );
+        $this->Keuangan_model->update($this->input->post('id', TRUE), $data);
+        $this->session->set_flashdata('message', 'Update Record Success');
+        redirect(base_url('keuangan'));
     }
 }

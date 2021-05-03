@@ -24,16 +24,16 @@
             <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="varchar">Jenis <?php echo form_error('jenis') ?></label>
-            <input type="text" class="form-control" name="jenis" id="jenis" placeholder="Jenis" value="<?php echo $jenis; ?>" />
-        </div>
-	    <div class="form-group">
             <label for="int">Total Kg <?php echo form_error('total_kg') ?></label>
             <input type="text" class="form-control" name="total_kg" id="total_kg" placeholder="Total Kg" value="<?php echo $total_kg; ?>" />
         </div>
 	    <div class="form-group">
             <label for="int">Total Ball <?php echo form_error('total_ball') ?></label>
             <input type="text" class="form-control" name="total_ball" id="total_ball" placeholder="Total Ball" value="<?php echo $total_ball; ?>" />
+        </div>
+	    <div class="form-group">
+            <label for="varchar">Ket <?php echo form_error('ket') ?></label>
+            <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" />
         </div>
 	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 

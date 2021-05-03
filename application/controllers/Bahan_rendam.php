@@ -7,6 +7,7 @@ class Bahan_rendam extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
@@ -39,12 +40,11 @@ class Bahan_rendam extends CI_Controller
                 'id_bahan' => $row->id_bahan,
                 'tgl_rendam' => $row->tgl_rendam,
                 'kolam' => $row->kolam,
-                'ball' => $row->ball,
                 'kg' => $row->kg,
+                'ball' => $row->ball,
                 'tgl_habis' => $row->tgl_habis,
                 'ket' => $row->ket,
-                //'lihatbahan' => $this->Bahan_rendam_model->lihatbahan()
-
+                // 'lihatbahan' => $this->Bahan_rendam_model->lihatbahan()
             );
             $this->load->view('bahan_rendam/bahan_rendam_read', $data);
         } else {
@@ -62,8 +62,8 @@ class Bahan_rendam extends CI_Controller
             'id_bahan' => set_value('id_bahan'),
             'tgl_rendam' => set_value('tgl_rendam'),
             'kolam' => set_value('kolam'),
-            'ball' => set_value('ball'),
             'kg' => set_value('kg'),
+            'ball' => set_value('ball'),
             'tgl_habis' => set_value('tgl_habis'),
             'ket' => set_value('ket'),
             'lihatbahan' => $this->Bahan_rendam_model->lihatbahan()
@@ -82,8 +82,8 @@ class Bahan_rendam extends CI_Controller
                 'id_bahan' => $this->input->post('id_bahan', TRUE),
                 'tgl_rendam' => $this->input->post('tgl_rendam', TRUE),
                 'kolam' => $this->input->post('kolam', TRUE),
-                'ball' => $this->input->post('ball', TRUE),
                 'kg' => $this->input->post('kg', TRUE),
+                'ball' => $this->input->post('ball', TRUE),
                 'tgl_habis' => $this->input->post('tgl_habis', TRUE),
                 'ket' => $this->input->post('ket', TRUE),
             );
@@ -106,8 +106,8 @@ class Bahan_rendam extends CI_Controller
                 'id_bahan' => set_value('id_bahan', $row->id_bahan),
                 'tgl_rendam' => set_value('tgl_rendam', $row->tgl_rendam),
                 'kolam' => set_value('kolam', $row->kolam),
-                'ball' => set_value('ball', $row->ball),
                 'kg' => set_value('kg', $row->kg),
+                'ball' => set_value('ball', $row->ball),
                 'tgl_habis' => set_value('tgl_habis', $row->tgl_habis),
                 'ket' => set_value('ket', $row->ket),
                 'lihatbahan' => $this->Bahan_rendam_model->lihatbahan()
@@ -130,8 +130,8 @@ class Bahan_rendam extends CI_Controller
                 'id_bahan' => $this->input->post('id_bahan', TRUE),
                 'tgl_rendam' => $this->input->post('tgl_rendam', TRUE),
                 'kolam' => $this->input->post('kolam', TRUE),
-                'ball' => $this->input->post('ball', TRUE),
                 'kg' => $this->input->post('kg', TRUE),
+                'ball' => $this->input->post('ball', TRUE),
                 'tgl_habis' => $this->input->post('tgl_habis', TRUE),
                 'ket' => $this->input->post('ket', TRUE),
             );
@@ -161,8 +161,8 @@ class Bahan_rendam extends CI_Controller
         $this->form_validation->set_rules('id_bahan', 'id bahan', 'trim|required');
         $this->form_validation->set_rules('tgl_rendam', 'tgl rendam', 'trim|required');
         $this->form_validation->set_rules('kolam', 'kolam', 'trim|required');
-        $this->form_validation->set_rules('ball', 'ball', 'trim|required');
         $this->form_validation->set_rules('kg', 'kg', 'trim|required');
+        $this->form_validation->set_rules('ball', 'ball', 'trim|required');
         $this->form_validation->set_rules('tgl_habis', 'tgl habis', 'trim|required');
         $this->form_validation->set_rules('ket', 'ket', 'trim|required');
 
@@ -195,8 +195,8 @@ class Bahan_rendam extends CI_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "Id Bahan");
         xlsWriteLabel($tablehead, $kolomhead++, "Tgl Rendam");
         xlsWriteLabel($tablehead, $kolomhead++, "Kolam");
-        xlsWriteLabel($tablehead, $kolomhead++, "Ball");
         xlsWriteLabel($tablehead, $kolomhead++, "Kg");
+        xlsWriteLabel($tablehead, $kolomhead++, "Ball");
         xlsWriteLabel($tablehead, $kolomhead++, "Tgl Habis");
         xlsWriteLabel($tablehead, $kolomhead++, "Ket");
 
@@ -208,8 +208,8 @@ class Bahan_rendam extends CI_Controller
             xlsWriteNumber($tablebody, $kolombody++, $data->id_bahan);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_rendam);
             xlsWriteLabel($tablebody, $kolombody++, $data->kolam);
-            xlsWriteNumber($tablebody, $kolombody++, $data->ball);
             xlsWriteNumber($tablebody, $kolombody++, $data->kg);
+            xlsWriteNumber($tablebody, $kolombody++, $data->ball);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_habis);
             xlsWriteLabel($tablebody, $kolombody++, $data->ket);
 
@@ -220,23 +220,10 @@ class Bahan_rendam extends CI_Controller
         xlsEOF();
         exit();
     }
-
-    public function word()
-    {
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=bahan_rendam.doc");
-
-        $data = array(
-            'bahan_rendam_data' => $this->Bahan_rendam_model->get_all(),
-            'start' => 0
-        );
-
-        $this->load->view('bahan_rendam/bahan_rendam_doc', $data);
-    }
 }
 
 /* End of file Bahan_rendam.php */
 /* Location: ./application/controllers/Bahan_rendam.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-03-19 11:59:23 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

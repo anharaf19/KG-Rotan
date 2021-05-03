@@ -39,13 +39,13 @@
             <thead>
                 <tr>
                     <th width="80px">No</th>
-		    <th>Id Spk</th>
+		    <th>No Spk</th>
 		    <th>No Item</th>
-		    <th>Qty</th>
+		    <th>Total Qty</th>
 		    <th>Id Bahan Rendam</th>
-		    <th>Ball</th>
 		    <th>Kg</th>
-		    <th>Detail Iptgl</th>
+		    <th>Ball</th>
+		    <th>Ket</th>
 		    <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -93,7 +93,7 @@
                         {
                             "data": "id",
                             "orderable": false
-                        },{"data": "id_spk"},{"data": "no_item"},{"data": "qty"},{"data": "id_bahan_rendam"},{"data": "ball"},{"data": "kg"},{"data": "detail_iptgl"},
+                        },{"data": "no_spk"},{"data": "no_item"},{"data": "total_qty"},{"data": "id_bahan_rendam"},{"data": "kg"},{"data": "ball"},{"data": "ket"},
                         {
                             "data" : "action",
                             "orderable": false,

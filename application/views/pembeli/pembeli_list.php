@@ -33,7 +33,6 @@
             <div class="col-md-8 text-right">
                 <?php echo anchor(site_url('pembeli/create'), 'Create', 'class="btn btn-primary"'); ?>
 		<?php echo anchor(site_url('pembeli/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-		<?php echo anchor(site_url('pembeli/word'), 'Word', 'class="btn btn-primary"'); ?>
 	    </div>
         </div>
         <table class="table table-bordered table-striped" id="mytable">
@@ -41,6 +40,7 @@
                 <tr>
                     <th width="80px">No</th>
 		    <th>Nama</th>
+		    <th>Ket</th>
 		    <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -88,7 +88,7 @@
                         {
                             "data": "id",
                             "orderable": false
-                        },{"data": "nama"},
+                        },{"data": "nama"},{"data": "ket"},
                         {
                             "data" : "action",
                             "orderable": false,

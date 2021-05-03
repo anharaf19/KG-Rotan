@@ -16,10 +16,11 @@
     <section class="content">
         <h2 style="margin-top:0px">Spk Read</h2>
         <table class="table">
-	    <tr><td>Id Po</td><td><?php echo $id_po; ?></td></tr>
+	    <tr><td>No Spk</td><td><?php echo $no_spk; ?></td></tr>
+	    <tr><td>Id Po Pabrik</td><td><?php echo $id_po_pabrik; ?></td></tr>
 	    <tr><td>Id Sub</td><td><?php echo $id_sub; ?></td></tr>
-	    <tr><td>Id Pabrik</td><td><?php echo $id_pabrik; ?></td></tr>
-	    <tr><td>Tgl</td><td><?php echo $tgl; ?></td></tr>
+	    <tr><td>Tgl Mulai</td><td><?php echo $tgl_mulai; ?></td></tr>
+	    <tr><td>Tgl Selesai</td><td><?php echo $tgl_selesai; ?></td></tr>
 	    <tr><td>Status</td><td><?php echo $status; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('spk') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>

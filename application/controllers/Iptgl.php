@@ -7,34 +7,39 @@ class Iptgl extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
+        if ($this->session->userdata('login') <> 1) {
+            redirect(base_url('auth'));
+        }
         $this->load->model('Iptgl_model');
-        $this->load->library('form_validation');        
-	$this->load->library('datatables');
+        $this->load->library('form_validation');
+        $this->load->library('datatables');
     }
 
     public function index()
     {
         $this->load->view('iptgl/iptgl_list');
-    } 
-    
-    public function json() {
+    }
+
+    public function json()
+    {
         header('Content-Type: application/json');
         echo $this->Iptgl_model->json();
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Iptgl_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'id_detail_spk' => $row->id_detail_spk,
-		'no_item' => $row->no_item,
-		'tgl_masuk' => $row->tgl_masuk,
-		'qty' => $row->qty,
-		'status' => $row->status,
-	    );
+                'id' => $row->id,
+                'id_detail_spk' => $row->id_detail_spk,
+                'no_item' => $row->no_item,
+                'tgl_masuk' => $row->tgl_masuk,
+                'qty' => $row->qty,
+                'status' => $row->status,
+            );
             $this->load->view('iptgl/iptgl_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -42,22 +47,22 @@ class Iptgl extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('iptgl/create_action'),
-	    'id' => set_value('id'),
-	    'id_detail_spk' => set_value('id_detail_spk'),
-	    'no_item' => set_value('no_item'),
-	    'tgl_masuk' => set_value('tgl_masuk'),
-	    'qty' => set_value('qty'),
-	    'status' => set_value('status'),
-	);
+            'id' => set_value('id'),
+            'id_detail_spk' => set_value('id_detail_spk'),
+            'no_item' => set_value('no_item'),
+            'tgl_masuk' => set_value('tgl_masuk'),
+            'qty' => set_value('qty'),
+            'status' => set_value('status'),
+        );
         $this->load->view('iptgl/iptgl_form', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -65,20 +70,20 @@ class Iptgl extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_detail_spk' => $this->input->post('id_detail_spk',TRUE),
-		'no_item' => $this->input->post('no_item',TRUE),
-		'tgl_masuk' => $this->input->post('tgl_masuk',TRUE),
-		'qty' => $this->input->post('qty',TRUE),
-		'status' => $this->input->post('status',TRUE),
-	    );
+                'id_detail_spk' => $this->input->post('id_detail_spk', TRUE),
+                'no_item' => $this->input->post('no_item', TRUE),
+                'tgl_masuk' => $this->input->post('tgl_masuk', TRUE),
+                'qty' => $this->input->post('qty', TRUE),
+                'status' => $this->input->post('status', TRUE),
+            );
 
             $this->Iptgl_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('iptgl'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Iptgl_model->get_by_id($id);
 
@@ -86,21 +91,21 @@ class Iptgl extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('iptgl/update_action'),
-		'id' => set_value('id', $row->id),
-		'id_detail_spk' => set_value('id_detail_spk', $row->id_detail_spk),
-		'no_item' => set_value('no_item', $row->no_item),
-		'tgl_masuk' => set_value('tgl_masuk', $row->tgl_masuk),
-		'qty' => set_value('qty', $row->qty),
-		'status' => set_value('status', $row->status),
-	    );
+                'id' => set_value('id', $row->id),
+                'id_detail_spk' => set_value('id_detail_spk', $row->id_detail_spk),
+                'no_item' => set_value('no_item', $row->no_item),
+                'tgl_masuk' => set_value('tgl_masuk', $row->tgl_masuk),
+                'qty' => set_value('qty', $row->qty),
+                'status' => set_value('status', $row->status),
+            );
             $this->load->view('iptgl/iptgl_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('iptgl'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -108,20 +113,20 @@ class Iptgl extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'id_detail_spk' => $this->input->post('id_detail_spk',TRUE),
-		'no_item' => $this->input->post('no_item',TRUE),
-		'tgl_masuk' => $this->input->post('tgl_masuk',TRUE),
-		'qty' => $this->input->post('qty',TRUE),
-		'status' => $this->input->post('status',TRUE),
-	    );
+                'id_detail_spk' => $this->input->post('id_detail_spk', TRUE),
+                'no_item' => $this->input->post('no_item', TRUE),
+                'tgl_masuk' => $this->input->post('tgl_masuk', TRUE),
+                'qty' => $this->input->post('qty', TRUE),
+                'status' => $this->input->post('status', TRUE),
+            );
 
             $this->Iptgl_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('iptgl'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Iptgl_model->get_by_id($id);
 
@@ -135,16 +140,16 @@ class Iptgl extends CI_Controller
         }
     }
 
-    public function _rules() 
+    public function _rules()
     {
-	$this->form_validation->set_rules('id_detail_spk', 'id detail spk', 'trim|required');
-	$this->form_validation->set_rules('no_item', 'no item', 'trim|required');
-	$this->form_validation->set_rules('tgl_masuk', 'tgl masuk', 'trim|required');
-	$this->form_validation->set_rules('qty', 'qty', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
+        $this->form_validation->set_rules('id_detail_spk', 'id detail spk', 'trim|required');
+        $this->form_validation->set_rules('no_item', 'no item', 'trim|required');
+        $this->form_validation->set_rules('tgl_masuk', 'tgl masuk', 'trim|required');
+        $this->form_validation->set_rules('qty', 'qty', 'trim|required');
+        $this->form_validation->set_rules('status', 'status', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()
@@ -169,35 +174,34 @@ class Iptgl extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Detail Spk");
-	xlsWriteLabel($tablehead, $kolomhead++, "No Item");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Masuk");
-	xlsWriteLabel($tablehead, $kolomhead++, "Qty");
-	xlsWriteLabel($tablehead, $kolomhead++, "Status");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Detail Spk");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Item");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tgl Masuk");
+        xlsWriteLabel($tablehead, $kolomhead++, "Qty");
+        xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
-	foreach ($this->Iptgl_model->get_all() as $data) {
+        foreach ($this->Iptgl_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_detail_spk);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->no_item);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->tgl_masuk);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->qty);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->status);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_detail_spk);
+            xlsWriteLabel($tablebody, $kolombody++, $data->no_item);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tgl_masuk);
+            xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+            xlsWriteLabel($tablebody, $kolombody++, $data->status);
 
-	    $tablebody++;
+            $tablebody++;
             $nourut++;
         }
 
         xlsEOF();
         exit();
     }
-
 }
 
 /* End of file Iptgl.php */
 /* Location: ./application/controllers/Iptgl.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-09 22:11:04 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:17:09 */
 /* http://harviacode.com */

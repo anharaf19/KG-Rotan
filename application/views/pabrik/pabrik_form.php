@@ -23,6 +23,10 @@
             <label for="varchar">Nama <?php echo form_error('nama') ?></label>
             <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
         </div>
+	    <div class="form-group">
+            <label for="varchar">Ket <?php echo form_error('ket') ?></label>
+            <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" />
+        </div>
 	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
 	    <a href="<?php echo site_url('pabrik') ?>" class="btn btn-default">Cancel</a>

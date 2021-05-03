@@ -6,16 +6,6 @@
     <?php $this->load->view('template/backend/header') ?>
     <?php $this->load->view('template/backend/navbar') ?>
     <?php $this->load->view('template/backend/sidebar') ?>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function() {
-            $("#tgl_masuk").datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-        });
-    </script>
 
 <body>
     <!-- Content Wrapper. Contains page content -->
@@ -33,6 +23,7 @@
             <form action="<?php echo $action; ?>" method="post">
                 <div class="form-group">
                     <label for="int">Id Bahan <?php echo form_error('id_bahan') ?></label>
+                    <!-- <input type="text" class="form-control" name="id_bahan" id="id_bahan" placeholder="Id Bahan" value="<?php echo $id_bahan; ?>" /> -->
                     <select name="id_bahan" id="id_bahan" class="form-control">
                         <?php
                         foreach ($lihatbahan as $row => $data) {
@@ -50,20 +41,23 @@
                 </div>
                 <div class="form-group">
                     <label for="date">Tgl Masuk <?php echo form_error('tgl_masuk') ?></label>
-                    <!-- <input type="text" class="form-control" name="tgl_masuk" id="tgl_masuk" placeholder="Tgl Masuk" value="<?php echo $tgl_masuk; ?>" /> -->
-                    <input type="text" id="tgl_masuk" data-date-format='yyyy-mm-dd' name="tgl_masuk" id="tgl_masuk" placeholder="Tgl Masuk" class="form-control" value="<?php echo $tgl_masuk; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="int">Ball <?php echo form_error('ball') ?></label>
-                    <input type="text" class="form-control" name="ball" id="ball" placeholder="Ball" value="<?php echo $ball; ?>" />
+                    <input type="text" class="form-control" name="tgl_masuk" id="tgl_masuk" placeholder="Tgl Masuk" value="<?php echo $tgl_masuk; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="int">Kg <?php echo form_error('kg') ?></label>
                     <input type="text" class="form-control" name="kg" id="kg" placeholder="Kg" value="<?php echo $kg; ?>" />
                 </div>
                 <div class="form-group">
+                    <label for="int">Ball <?php echo form_error('ball') ?></label>
+                    <input type="text" class="form-control" name="ball" id="ball" placeholder="Ball" value="<?php echo $ball; ?>" />
+                </div>
+                <div class="form-group">
                     <label for="varchar">Asal Bahan <?php echo form_error('asal_bahan') ?></label>
                     <input type="text" class="form-control" name="asal_bahan" id="asal_bahan" placeholder="Asal Bahan" value="<?php echo $asal_bahan; ?>" />
+                </div>
+                <div class="form-group">
+                    <label for="varchar">Ket <?php echo form_error('ket') ?></label>
+                    <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" />
                 </div>
                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
@@ -72,6 +66,5 @@
         </section>
         <!-- /.content -->
     </div>
-
 
     <?php $this->load->view('template/backend/footer') ?>

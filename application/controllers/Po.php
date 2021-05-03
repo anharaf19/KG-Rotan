@@ -7,6 +7,7 @@ class Po extends CI_Controller
 {
     function __construct()
     {
+
         parent::__construct();
         if ($this->session->userdata('login') <> 1) {
             redirect(base_url('auth'));
@@ -36,10 +37,12 @@ class Po extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
-                'id_pembeli' => $row->id_pembeli,
                 'no_po' => $row->no_po,
+                'po' => $row->po,
+                'id_pembeli' => $row->id_pembeli,
                 'tgl_mulai' => $row->tgl_mulai,
                 'tgl_selesai' => $row->tgl_selesai,
+                'ket' => $row->ket,
             );
             $this->load->view('po/po_read', $data);
         } else {
@@ -54,10 +57,12 @@ class Po extends CI_Controller
             'button' => 'Create',
             'action' => site_url('po/create_action'),
             'id' => set_value('id'),
-            'id_pembeli' => set_value('id_pembeli'),
             'no_po' => set_value('no_po'),
+
+            'id_pembeli' => set_value('id_pembeli'),
             'tgl_mulai' => set_value('tgl_mulai'),
             'tgl_selesai' => set_value('tgl_selesai'),
+            'ket' => set_value('ket'),
             'lihatpembeli' => $this->Po_model->lihatpembeli()
         );
         $this->load->view('po/po_form', $data);
@@ -71,10 +76,12 @@ class Po extends CI_Controller
             $this->create();
         } else {
             $data = array(
-                'id_pembeli' => $this->input->post('id_pembeli', TRUE),
                 'no_po' => $this->input->post('no_po', TRUE),
+
+                'id_pembeli' => $this->input->post('id_pembeli', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
+                'ket' => $this->input->post('ket', TRUE),
             );
 
             $this->Po_model->insert($data);
@@ -92,10 +99,11 @@ class Po extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('po/update_action'),
                 'id' => set_value('id', $row->id),
+                'no_po' => set_value('no_po', $row->no_po),
                 'id_pembeli' => set_value('id_pembeli', $row->id_pembeli),
                 'tgl_mulai' => set_value('tgl_mulai', $row->tgl_mulai),
                 'tgl_selesai' => set_value('tgl_selesai', $row->tgl_selesai),
-                'no_po' => set_value('no_po', $row->no_po),
+                'ket' => set_value('ket', $row->ket),
                 'lihatpembeli' => $this->Po_model->lihatpembeli()
             );
             $this->load->view('po/po_form', $data);
@@ -113,11 +121,12 @@ class Po extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
+                'no_po' => $this->input->post('no_po', TRUE),
+
                 'id_pembeli' => $this->input->post('id_pembeli', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
-                'no_po' => $this->input->post('no_po', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
-
+                'ket' => $this->input->post('ket', TRUE),
             );
 
             $this->Po_model->update($this->input->post('id', TRUE), $data);
@@ -142,10 +151,13 @@ class Po extends CI_Controller
 
     public function _rules()
     {
+        $this->form_validation->set_rules('no_po', 'no po', 'trim|required');
+
         $this->form_validation->set_rules('id_pembeli', 'id pembeli', 'trim|required');
         $this->form_validation->set_rules('tgl_mulai', 'tgl mulai', 'trim|required');
         $this->form_validation->set_rules('tgl_selesai', 'tgl selesai', 'trim|required');
-        $this->form_validation->set_rules('no_po', 'no po', 'trim|required');
+        $this->form_validation->set_rules('ket', 'ket', 'trim|required');
+
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
@@ -172,19 +184,24 @@ class Po extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Po");
+
         xlsWriteLabel($tablehead, $kolomhead++, "Id Pembeli");
         xlsWriteLabel($tablehead, $kolomhead++, "Tgl Mulai");
         xlsWriteLabel($tablehead, $kolomhead++, "Tgl Selesai");
+        xlsWriteLabel($tablehead, $kolomhead++, "Ket");
 
         foreach ($this->Po_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteNumber($tablebody, $kolombody++, $data->no_po);
+            xlsWriteLabel($tablebody, $kolombody++, $data->no_po);
+
             xlsWriteNumber($tablebody, $kolombody++, $data->id_pembeli);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_mulai);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_selesai);
+            xlsWriteLabel($tablebody, $kolombody++, $data->ket);
 
             $tablebody++;
             $nourut++;
@@ -193,23 +210,10 @@ class Po extends CI_Controller
         xlsEOF();
         exit();
     }
-
-    public function word()
-    {
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=po.doc");
-
-        $data = array(
-            'po_data' => $this->Po_model->get_all(),
-            'start' => 0
-        );
-
-        $this->load->view('po/po_doc', $data);
-    }
 }
 
 /* End of file Po.php */
 /* Location: ./application/controllers/Po.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-03-19 11:59:24 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-04-22 13:29:43 */
 /* http://harviacode.com */

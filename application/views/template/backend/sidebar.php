@@ -18,6 +18,9 @@
       <div class="info">
         <a href="#" class="d-block"><?php echo $this->session->userdata('jabatan'); ?></a>
       </div>
+      <div class="info">
+        <a href="#" class="d-block"><?php echo $this->session->userdata('id_pabrik'); ?></a>
+      </div>
     </div>
     <!-- Sidebar Menu -->
     <?php if ($this->session->userdata('jabatan') == "SuperAdmin") { ?>
@@ -31,6 +34,15 @@
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 PO
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('po_pabrik') ?>" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                PO_Pabrik
                 <span class="badge badge-info right">2</span>
               </p>
             </a>

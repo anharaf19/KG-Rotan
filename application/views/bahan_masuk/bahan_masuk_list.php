@@ -35,7 +35,6 @@
                 <div class="col-md-8 text-right">
                     <?php echo anchor(site_url('bahan_masuk/create'), 'Create', 'class="btn btn-primary"'); ?>
                     <?php echo anchor(site_url('bahan_masuk/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                    <?php echo anchor(site_url('bahan_masuk/word'), 'Word', 'class="btn btn-primary"'); ?>
                 </div>
             </div>
             <table class="table table-bordered table-striped" id="mytable">
@@ -44,8 +43,8 @@
                         <th width="80px">No</th>
                         <th>Id Bahan</th>
                         <th>Tgl Masuk</th>
-                        <th>Ball</th>
                         <th>Kg</th>
+                        <th>Ball</th>
                         <th>Asal Bahan</th>
                         <th width="200px">Action</th>
                     </tr>
@@ -96,13 +95,13 @@
                         "data": "id",
                         "orderable": false
                     }, {
-                        "data": "nama"
+                        "data": "id_bahan"
                     }, {
                         "data": "tgl_masuk"
                     }, {
-                        "data": "ball"
-                    }, {
                         "data": "kg"
+                    }, {
+                        "data": "ball"
                     }, {
                         "data": "asal_bahan"
                     },
