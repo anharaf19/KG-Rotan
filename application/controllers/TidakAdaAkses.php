@@ -28,6 +28,6 @@ class TidakAdaAkses extends CI_Controller
     }
     public function index()
     {
-        echo "Anda Tidak Dapat Mengakses Halaman ini...";
+        $this->load->view('tidakadaakses');
     }
 }
