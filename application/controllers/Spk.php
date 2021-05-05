@@ -19,11 +19,14 @@ class Spk extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('jabatan') <> 'SuperAdmin') {
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin' || $jabatan = 'Admin') {
+            $this->load->view('spk/spk_list');
+        } else {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('spk/spk_list');
     }
+
 
     public function json()
     {

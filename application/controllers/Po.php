@@ -19,10 +19,12 @@ class Po extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('jabatan') <> 'SuperAdmin') {
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin' || $jabatan == 'Pembagi PO') {
+            $this->load->view('po/po_list');
+        } else {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('po/po_list');
     }
 
     public function json()

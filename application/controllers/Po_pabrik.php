@@ -19,10 +19,12 @@ class Po_pabrik extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('jabatan') <> 'SuperAdmin') {
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin' || $jabatan == 'Pembagi PO') {
+            $this->load->view('po_pabrik/po_pabrik_list');
+        } else {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('po_pabrik/po_pabrik_list');
     }
 
     public function json()

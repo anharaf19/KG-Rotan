@@ -147,6 +147,36 @@
         </ul>
       </nav>
     <?php } ?>
+    <?php if ($this->session->userdata('jabatan') == "Admin") { ?>
+      <li class="nav-header">Dummy</li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('spk') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            SPK
+          </p>
+        </a>
+      </li>
+    <?php } ?>
+    <?php if ($this->session->userdata('jabatan') == "Pembagi PO") { ?>
+      <li class="nav-header">Dummy</li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('Po') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            PO
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('po_pabrik') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Po Pabrik
+          </p>
+        </a>
+      </li>
+    <?php } ?>
     <?php if ($this->session->userdata('jabatan') == "Bahan") { ?>
       <li class="nav-header">Dummy</li>
       <li class="nav-item">
