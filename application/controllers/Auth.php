@@ -58,6 +58,8 @@ class Auth extends CI_Controller
                     redirect(base_url('/pabrikqc'));
                 } else if ($this->session->userdata('jabatan') == 'Keuangan') {
                     redirect(base_url('/keuangan'));
+                } else if ($this->session->userdata('jabatan') == 'Bahan') {
+                    redirect(base_url('/bahan'));
                 }
             } else {
                 $this->session->set_flashdata("pesan", "<div class='alert alert-danger' role='alert' fade>Username atau Password anda salah</div>");

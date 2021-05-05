@@ -147,6 +147,41 @@
         </ul>
       </nav>
     <?php } ?>
+    <?php if ($this->session->userdata('jabatan') == "Bahan") { ?>
+      <li class="nav-header">Dummy</li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('bahan') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Bahan
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('bahan_masuk') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Bahan Masuk
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('bahan_rendam') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Bahan Rendam
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?php echo base_url('ambil_bahan') ?>" class="nav-link">
+          <i class="nav-icon fas fa-columns"></i>
+          <p>
+            Ambil Bahan
+          </p>
+        </a>
+      </li>
+    <?php } ?>
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->

@@ -20,7 +20,7 @@
         <!-- Main content -->
         <section class="content">
             <h2 style="margin-top:0px">User <?php echo $button ?></h2>
-            <form action="<?php echo $action; ?>" method="post">
+            <form action="<?php echo $action; ?>" method="post" class="">
                 <div class="form-group">
                     <label for="int">Nama Pabrik <?php echo form_error('id_pabrik') ?></label>
                     <select name="id_pabrik" id="id_pabrik" class="form-control">
@@ -48,11 +48,18 @@
                 </div>
                 <div class="form-group">
                     <label for="varchar">Password <?php echo form_error('password') ?></label>
-                    <input type="text" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" />
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">Jabatan <?php echo form_error('jabatan') ?></label>
-                    <input type="text" class="form-control" name="jabatan" id="jabatan" placeholder="Jabatan" value="<?php echo $jabatan; ?>" />
+                    <select class="form-control" name="jabatan" id="jabatan">
+                        <option value="SuperAdmin">SuperAdmin</option>
+                        <option value="Pembagi PO">Pembagi PO</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Pabrik">Pabrik</option>
+                        <option value="Keuangan">Keuangan</option>
+                        <option value="Bahan">Bahan</option>
+                    </select>
                 </div>
                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $button ?></button>

@@ -19,10 +19,12 @@ class Ambil_bahan extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('jabatan') <> 'SuperAdmin') {
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin' || $jabatan == 'Bahan') {
+            $this->load->view('ambil_bahan/ambil_bahan_list');
+        } else {
             redirect(base_url('tidakadaakses'));
         }
-        $this->load->view('ambil_bahan/ambil_bahan_list');
     }
 
     public function json()
