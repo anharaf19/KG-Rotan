@@ -44,10 +44,20 @@ class Keuangan extends CI_Controller
 
         $status = 'Sudah Dibayar';
         $data = array(
-            'status' => $status
+            'status' => $status,
+            'tgl_bayar' => $this->session->userdata('tgl')
         );
         $this->Keuangan_model->update($this->input->post('id', TRUE), $data);
         $this->session->set_flashdata('message', 'Update Record Success');
         redirect(base_url('keuangan'));
+    }
+    public function search()
+    {
+        $keyword = $this->input->post('keyword');
+        $id_pabrik = $this->session->userdata('id_pabrik');
+        $data = array(
+            'qc' => $this->Keuangan_model->get_qc_keyword($keyword, $id_pabrik)
+        );
+        $this->load->view('keuangan/search.php', $data);
     }
 }

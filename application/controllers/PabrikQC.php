@@ -80,4 +80,13 @@ class PabrikQC extends CI_Controller
 
         $this->load->view('v_edit', $data);
     }
+    public function search()
+    {
+        $keyword = $this->input->post('keyword');
+        $id_pabrik = $this->session->userdata('id_pabrik');
+        $data = array(
+            'detail_spk' => $this->Pabrikqc_model->get_detailspk_keyword($keyword, $id_pabrik)
+        );
+        $this->load->view('pabrikqc/search.php', $data);
+    }
 }

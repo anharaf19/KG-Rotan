@@ -28,6 +28,10 @@ class Keuangan_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }
+    public function get_qc_keyword($keyword, $id_pabrik)
+    {
+        return $this->db->query("SELECT * from (SELECT * FROM `qc` WHERE id_pabrik = $id_pabrik && status = 'belum dibayar')AS tabelqc WHERE tabelqc.no_spk LIKE '%$keyword%' OR tabelqc.no_item LIKE '%$keyword%'")->result();
+    }
 }
 
 

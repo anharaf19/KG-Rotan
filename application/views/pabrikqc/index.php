@@ -30,7 +30,12 @@
 
     <!-- Main content -->
     <section class="content">
+        <?php echo form_open('pabrikqc/search') ?>
+        <input type="text" name="keyword" placeholder="search">
+        <input type="submit" name="search_submit" value="Cari">
+        <?php echo form_close() ?>
         <div class="row">
+
             <?php foreach ($lihatspk2 as $row) { ?>
                 <div class="col-md-3">
                     <div class="card" style="width: 24rem;">

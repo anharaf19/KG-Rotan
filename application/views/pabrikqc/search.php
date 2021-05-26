@@ -20,7 +20,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard Keuangan</li>
+                        <li class="breadcrumb-item active">Dashboard Pabrik</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -30,46 +30,25 @@
 
     <!-- Main content -->
     <section class="content">
-        Belum Dibayar
-        <?php echo form_open('keuangan/search') ?>
+        <?php echo form_open('pabrikqc/search') ?>
         <input type="text" name="keyword" placeholder="search">
         <input type="submit" name="search_submit" value="Cari">
         <?php echo form_close() ?>
         <div class="row">
-            <?php foreach ($lihatiptgl as $row) : ?>
+
+            <?php foreach ($detail_spk as $row) { ?>
                 <div class="col-md-3">
-                    <div class="card mb-3" style="width: 24 rem;">
+                    <div class="card" style="width: 24rem;">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row->no_spk; ?></h5>
-                            <p class="card-text"><?php echo $row->no_item; ?> </p>
-                            <p class="card-text"><?php echo $row->tgl_masuk; ?> </p>
-                            <p class="card-text"><?php echo $row->qty; ?> </p>
-                            <form action="<?php echo base_url('keuangan/bayar') ?>" method="post">
-                                <input type="hidden" name='id' value="<?php echo $row->id; ?>" />
-                                <button type="submit" class="btn btn-primary">Bayar</button>
-                            </form>
+                            <p class="card-text">No Item :<?php echo $row->no_item; ?> </p>
+                            <p class="card-text"><?php echo $row->total_qty; ?> Item </p>
+                            <a href="<?php echo site_url('pabrikqc/addqty/' . $row->id) ?>" class="btn btn-primary">Hasil Qc</a>
                         </div>
                     </div>
                 </div>
-            <?php endforeach ?>
+            <?php } ?>
         </div>
-        Sudah Dibayar
-        <div class="row">
-            <?php foreach ($lihatqcbayar as $row) : ?>
-                <div class="col-md-3">
-                    <div class="card mb-3" style="width: 24 rem;">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $row->id_detail_spk; ?></h5>
-                            <p class="card-text"><?php echo $row->no_item; ?> </p>
-                            <p class="card-text"><?php echo $row->tgl_masuk; ?> </p>
-                            <p class="card-text"><?php echo $row->qty; ?> </p>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach ?>
-        </div>
-
-
     </section>
     <!-- /.content -->
 </div>
