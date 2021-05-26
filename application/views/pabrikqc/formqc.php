@@ -22,8 +22,8 @@
             <h2 style="margin-top:0px"> QC</h2>
             <form action="<?php echo site_url('pabrikqc/add') ?>" method="post">
                 <div class="form-group">
-                    <label for="varchar">Id Detail Spk</label>
                     <input type="hidden" class="form-control" name="id_detail_spk" id="id_detail_spk" placeholder="id_detail_spk" value="<?php if (isset($id)) echo $id; ?>" />
+                    <input type="hidden" class="form-control" name="id_detail_spk" id="id_detail_spk" placeholder="id_detail_spk" value="<?php if (isset($id)) echo $id_penyimpanan; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">No SPK</label>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="varchar">Tanggal</label>
-                    <input type="text" class="form-control" name="tgl_masuk" id="tgl_masuk" placeholder="tgl_masuk" value="" />
+                    <input type="text" class="form-control" name="tgl_masuk" id="tgl_masuk" placeholder="tgl_masuk" value="<?php echo $this->session->userdata('tgl'); ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">qty</label>

@@ -41,8 +41,7 @@ class Pabrikqc_model extends CI_Model
     }
     function lihatspkperid($id)
     {
-        $this->db->where('id', $id);
-        return $this->db->get('detail_spk')->row();
+        return $this->db->query("SELECT detail_spk.id as id, detail_spk.no_spk as no_spk, detail_spk.no_item as no_item, penyimpanan.id as id_penyimpanan FROM detail_spk join spk on detail_spk.no_spk = spk.no_spk join po_pabrik on spk.id_po_pabrik=po_pabrik.id JOIN penyimpanan on po_pabrik.id = penyimpanan.id_po_pabrik where detail_spk.id = $id ")->row();
     }
 }
 

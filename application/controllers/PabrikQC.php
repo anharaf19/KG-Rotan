@@ -45,7 +45,8 @@ class PabrikQC extends CI_Controller
         $dataw = array(
             'id' => set_value('id', $rows->id),
             'no_item' => set_value('no_item', $rows->no_item),
-            'no_spk' => set_value('no_spk', $rows->no_spk)
+            'no_spk' => set_value('no_spk', $rows->no_spk),
+            'id_penyimpanan' => set_value('id_penyimpanan', $rows->id_penyimpanan)
         );
 
         $this->load->view('pabrikqc/formqc', $dataw);
