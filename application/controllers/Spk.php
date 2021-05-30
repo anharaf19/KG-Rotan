@@ -86,7 +86,7 @@ class Spk extends CI_Controller
                 'id_sub' => $this->input->post('id_sub', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
-                'status' => $this->input->post('status', TRUE),
+                'status' => 'Belum Selesai',
             );
 
             $this->Spk_model->insert($data);

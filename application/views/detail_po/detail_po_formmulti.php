@@ -76,6 +76,7 @@
                 <div id="insert-form"></div>
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a href="<?php echo site_url('detail_po') ?>" class="btn btn-default">Cancel</a>
+                <button type="button" id="btn-tambah-form">Tambah Data Form</button>
             </form>
             <input type="hidden" id="jumlah-form" value="1">
             <script>

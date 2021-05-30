@@ -226,6 +226,7 @@ class Detail_spk extends CI_Controller
         $id_bahan_rendam = $_POST['id_bahan_rendam']; // Ambil data id_bahan_rendam dan masukkan ke variabel id_bahan_rendam
         $ball = $_POST['ball']; // Ambil data ball dan masukkan ke variabel ball
         $kg = $_POST['kg']; // Ambil data kg dan masukkan ke variabel kg
+        $ket = '0';
         $data = array();
 
         $index = 0; // Set index array awal dengan 0
@@ -237,6 +238,7 @@ class Detail_spk extends CI_Controller
                 'id_bahan_rendam' => $id_bahan_rendam[$index],  // Ambil dan set data id_bahan_rendam sesuai index array dari $index
                 'ball' => $ball[$index],  // Ambil dan set data ball sesuai index array dari $index
                 'kg' => $kg[$index],  // Ambil dan set data kg sesuai index array dari $index
+                'ket' => $ket
             ));
 
             $index++;

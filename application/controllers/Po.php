@@ -83,7 +83,7 @@ class Po extends CI_Controller
                 'id_pembeli' => $this->input->post('id_pembeli', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
-                'ket' => $this->input->post('ket', TRUE),
+                'ket' => '0',
             );
 
             $this->Po_model->insert($data);
@@ -158,7 +158,7 @@ class Po extends CI_Controller
         $this->form_validation->set_rules('id_pembeli', 'id pembeli', 'trim|required');
         $this->form_validation->set_rules('tgl_mulai', 'tgl mulai', 'trim|required');
         $this->form_validation->set_rules('tgl_selesai', 'tgl selesai', 'trim|required');
-        $this->form_validation->set_rules('ket', 'ket', 'trim|required');
+
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

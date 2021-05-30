@@ -26,6 +26,7 @@ class PabrikQC extends CI_Controller
             redirect(base_url('auth'));
         }
         $this->load->model('Pabrikqc_model');
+        $this->load->model('Spk_model');
         $this->load->library('form_validation');
     }
     public function index()
@@ -54,13 +55,16 @@ class PabrikQC extends CI_Controller
     function add()
     {
         $id_detail_spk = $this->input->post('id_detail_spk');
+        $id_penyimpanan = $this->input->post('id_penyimpanan');
         $no_item = $this->input->post('no_item');
         $no_spk = $this->input->post('no_spk');
         $tgl_masuk = $this->input->post('tgl_masuk');
         $qty = $this->input->post('qty');
         $id_pabrik = $this->session->userdata('id_pabrik');
+
         $data = array(
             'id_detail_spk' => $id_detail_spk,
+            'id_penyimpanan' => $id_penyimpanan,
             'id_pabrik' => $id_pabrik,
             'no_item' => $no_item,
             'no_spk' => $no_spk,

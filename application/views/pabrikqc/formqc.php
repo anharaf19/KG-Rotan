@@ -23,7 +23,7 @@
             <form action="<?php echo site_url('pabrikqc/add') ?>" method="post">
                 <div class="form-group">
                     <input type="hidden" class="form-control" name="id_detail_spk" id="id_detail_spk" placeholder="id_detail_spk" value="<?php if (isset($id)) echo $id; ?>" />
-                    <input type="hidden" class="form-control" name="id_detail_spk" id="id_detail_spk" placeholder="id_detail_spk" value="<?php if (isset($id)) echo $id_penyimpanan; ?>" />
+                    <input type="hidden" class="form-control" name="id_penyimpanan" id="id_penyimpanan" placeholder="id_penyimpanan" value="<?php if (isset($id)) echo $id_penyimpanan; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">No SPK</label>

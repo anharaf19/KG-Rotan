@@ -27,8 +27,8 @@ class Pabrikqc_model extends CI_Model
                                 detail_spk.total_qty as total_qty
                                 from spk 
                                 join detail_spk on spk.no_spk = detail_spk.no_spk 
-                                join po_pabrik on spk.id_po_pabrik = po_pabrik.id
-                                where status = 'Belum Selesai' && id_pabrik= $pabrik")->result();
+                                join po_pabrik on spk.id_po_pabrik = po_pabrik.id   
+                                where spk.status = 'Belum Selesai' && id_pabrik= $pabrik")->result();
     }
     function lihatspk()
     {
@@ -46,6 +46,10 @@ class Pabrikqc_model extends CI_Model
     public function get_detailspk_keyword($keyword, $id_pabrik)
     {
         return $this->db->query("SELECT * from (SELECT spk.no_spk as no_spk, po_pabrik.id_pabrik as id_pabrik, detail_spk.no_item as no_item, spk.status as status, spk.id_sub as id_sub, spk.tgl_mulai as tgl_mulai, spk.tgl_selesai as tgl_selesai, detail_spk.id as id, detail_spk.total_qty as total_qty FROM `detail_spk` JOIN spk on detail_spk.no_spk = spk.no_spk JOIN po_pabrik on spk.id_po_pabrik = po_pabrik.id WHERE po_pabrik.id_pabrik = $id_pabrik && spk.status = 'Belum Selesai') as tabel WHERE tabel.no_spk LIKE '%$keyword%' OR tabel.no_item LIKE '%$keyword%'")->result();
+    }
+    public function lihatpenyimpanan()
+    {
+        return $this->db->query("SELECT total_qty from penyimpanan")->result();
     }
 }
 
