@@ -27,7 +27,8 @@ class Pabrikqc_model extends CI_Model
                                 detail_spk.total_qty as total_qty
                                 from spk 
                                 join detail_spk on spk.no_spk = detail_spk.no_spk 
-                                join po_pabrik on spk.id_po_pabrik = po_pabrik.id   
+                                join detail_po_pabrik on spk.id_detail_po_pabrik = detail_po_pabrik.id
+                                join po_pabrik on detail_po_pabrik.id_po_pabrik = po_pabrik.id    
                                 where spk.status = 'Belum Selesai' && id_pabrik= $pabrik")->result();
     }
     function lihatspk()
@@ -41,11 +42,16 @@ class Pabrikqc_model extends CI_Model
     }
     function lihatspkperid($id)
     {
-        return $this->db->query("SELECT detail_spk.id as id, detail_spk.no_spk as no_spk, detail_spk.no_item as no_item, penyimpanan.id as id_penyimpanan FROM detail_spk join spk on detail_spk.no_spk = spk.no_spk join po_pabrik on spk.id_po_pabrik=po_pabrik.id JOIN penyimpanan on po_pabrik.id = penyimpanan.id_po_pabrik where detail_spk.id = $id ")->row();
+        return $this->db->query(" SELECT detail_spk.id as id, detail_spk.no_spk as no_spk, detail_spk.no_item as no_item FROM detail_spk join spk on detail_spk.no_spk = spk.no_spk join detail_po_pabrik on spk.id_detail_po_pabrik=detail_po_pabrik.id
+        where detail_spk.id = $id ")->row();
     }
     public function get_detailspk_keyword($keyword, $id_pabrik)
     {
-        return $this->db->query("SELECT * from (SELECT spk.no_spk as no_spk, po_pabrik.id_pabrik as id_pabrik, detail_spk.no_item as no_item, spk.status as status, spk.id_sub as id_sub, spk.tgl_mulai as tgl_mulai, spk.tgl_selesai as tgl_selesai, detail_spk.id as id, detail_spk.total_qty as total_qty FROM `detail_spk` JOIN spk on detail_spk.no_spk = spk.no_spk JOIN po_pabrik on spk.id_po_pabrik = po_pabrik.id WHERE po_pabrik.id_pabrik = $id_pabrik && spk.status = 'Belum Selesai') as tabel WHERE tabel.no_spk LIKE '%$keyword%' OR tabel.no_item LIKE '%$keyword%'")->result();
+        return $this->db->query("SELECT * from (SELECT spk.no_spk as no_spk, po_pabrik.id_pabrik as id_pabrik, detail_spk.no_item as no_item, spk.status as status, spk.id_sub as id_sub, spk.tgl_mulai as tgl_mulai, spk.tgl_selesai as tgl_selesai, detail_spk.id as id, detail_spk.total_qty as total_qty FROM `detail_spk` JOIN spk on detail_spk.no_spk = spk.no_spk JOIN detail_po_pabrik on spk.id_detail_po_pabrik = detail_po_pabrik.id join po_pabrik on detail_po_pabrik.id_po_pabrik = po_pabrik.id WHERE po_pabrik.id_pabrik = $id_pabrik && spk.status = 'Belum Selesai') as tabel WHERE tabel.no_spk LIKE '%$keyword%' OR tabel.no_item LIKE '%$keyword%'")->result();
+    }
+    function getidpenyimpananperitem($id_pabrik, $no_item)
+    {
+        return $this->db->query(" SELECT * from penyimpanan where no_item= $no_item && id_pabrik = $id_pabrik ")->row();
     }
     public function lihatpenyimpanan()
     {

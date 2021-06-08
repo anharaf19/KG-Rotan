@@ -16,13 +16,22 @@ class Bahan_rendam_model extends CI_Model
     }
 
     // datatables
-    function json()
+    function jsonIsAdmin()
     {
         $this->datatables->select('bahan_rendam.id as id , bahan_rendam.id_bahan as id_bahan, bahan_rendam.tgl_rendam as tgl_rendam , bahan_rendam.kolam as kolam, bahan_rendam.kg as kg, bahan_rendam.ball as ball, bahan_rendam.tgl_habis as tgl_habis ,bahan_rendam.ket as ket');
         $this->datatables->from('bahan_rendam');
         //add this line for join
         $this->datatables->join('bahan', 'bahan_rendam.id_bahan = bahan.id');
         $this->datatables->add_column('action', anchor(site_url('bahan_rendam/read/$1'), 'Read') . " | " . anchor(site_url('bahan_rendam/update/$1'), 'Update') . " | " . anchor(site_url('bahan_rendam/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        return $this->datatables->generate();
+    }
+    function json()
+    {
+        $this->datatables->select('bahan_rendam.id as id , bahan_rendam.id_bahan as id_bahan, bahan_rendam.tgl_rendam as tgl_rendam , bahan_rendam.kolam as kolam, bahan_rendam.kg as kg, bahan_rendam.ball as ball, bahan_rendam.tgl_habis as tgl_habis ,bahan_rendam.ket as ket');
+        $this->datatables->from('bahan_rendam');
+        //add this line for join
+        $this->datatables->join('bahan', 'bahan_rendam.id_bahan = bahan.id');
+        $this->datatables->add_column('action', anchor(site_url('bahan_rendam/read/$1'), 'Read'), 'id');
         return $this->datatables->generate();
     }
 

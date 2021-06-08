@@ -39,7 +39,11 @@
                 </div>
                 <div class="form-group">
                     <label for="varchar">Jenis Pack</label>
-                    <input type="text" class="form-control" name="jenis_pack[]" id="jenis_pack" placeholder="Jenis Pack" />
+                    <!-- <input type="text" class="form-control" name="jenis_pack[]" id="jenis_pack" placeholder="Jenis Pack" /> -->
+                    <select name="jenis_pack[]" class="form-control">
+                        <option value="Packing">Packing</option>
+                        <option value="Bundel">Bundel</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="int">Total Order</label>
@@ -75,7 +79,7 @@
                 </div>
                 <div id="insert-form"></div>
                 <button type="submit" class="btn btn-primary">Create</button>
-                <a href="<?php echo site_url('detail_po') ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo site_url('po') ?>" class="btn btn-default">Cancel</a>
                 <button type="button" id="btn-tambah-form">Tambah Data Form</button>
             </form>
             <input type="hidden" id="jumlah-form" value="1">
@@ -103,7 +107,11 @@
                             '</div>' +
                             '<div class="form-group">' +
                             '<label for="varchar">Jenis Pack</label>' +
-                            '<input type="text" class="form-control" name="jenis_pack[]" id="jenis_pack" placeholder="Jenis Pack" />' +
+                            // '<input type="text" class="form-control" name="jenis_pack[]" id="jenis_pack" placeholder="Jenis Pack" />' +
+                            '<select name="jenis_pack[]" class="form-control">' +
+                            '<option value="Packing">Packing</option>' +
+                            '<option value="Bundel">Bundel</option>' +
+                            '</select>' +
                             '</div>' +
                             '<div class="form-group">' +
                             '<label for="int">Total Order</label>' +

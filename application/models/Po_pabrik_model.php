@@ -18,7 +18,7 @@ class Po_pabrik_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('po_pabrik.id as id , po.no_po as no_po , pabrik.nama as nama , no_item, qty');
+        $this->datatables->select('po_pabrik.id as id , po.no_po as no_po , pabrik.nama as nama ');
         $this->datatables->from('po_pabrik');
         //add this line for join
         $this->datatables->join('po', 'po_pabrik.no_po = po.no_po');

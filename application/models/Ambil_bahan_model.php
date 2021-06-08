@@ -16,7 +16,7 @@ class Ambil_bahan_model extends CI_Model
     }
 
     // datatables
-    function json()
+    function jsonIsAdmin()
     {
         $this->datatables->select('ambil_bahan.id as id, detail_spk.no_spk  as no_spk, bahan_rendam.kolam as kolam , tgl_keluar , ambil_bahan.kg as kg , ambil_bahan.ball as ball,nama_sopir');
         $this->datatables->from('ambil_bahan');
@@ -24,6 +24,16 @@ class Ambil_bahan_model extends CI_Model
         $this->datatables->join('bahan_rendam', 'ambil_bahan.id_bahan_rendam = bahan_rendam.id');
         $this->datatables->join('detail_spk', 'ambil_bahan.id_detail_spk = detail_spk.id');
         $this->datatables->add_column('action', anchor(site_url('ambil_bahan/read/$1'), 'Read') . " | " . anchor(site_url('ambil_bahan/update/$1'), 'Update') . " | " . anchor(site_url('ambil_bahan/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        return $this->datatables->generate();
+    }
+    function json()
+    {
+        $this->datatables->select('ambil_bahan.id as id, detail_spk.no_spk  as no_spk, bahan_rendam.kolam as kolam , tgl_keluar , ambil_bahan.kg as kg , ambil_bahan.ball as ball,nama_sopir');
+        $this->datatables->from('ambil_bahan');
+        //add this line for join
+        $this->datatables->join('bahan_rendam', 'ambil_bahan.id_bahan_rendam = bahan_rendam.id');
+        $this->datatables->join('detail_spk', 'ambil_bahan.id_detail_spk = detail_spk.id');
+        $this->datatables->add_column('action', anchor(site_url('ambil_bahan/read/$1'), 'Read'), 'id');
         return $this->datatables->generate();
     }
 

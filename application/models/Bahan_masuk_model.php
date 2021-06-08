@@ -16,13 +16,22 @@ class Bahan_masuk_model extends CI_Model
     }
 
     // datatables
-    function json()
+    function jsonIsAdmin()
     {
         $this->datatables->select('bahan_masuk.id as id,bahan.id as idbahan, id_bahan,tgl_masuk,ball,kg,asal_bahan');
         $this->datatables->from('bahan_masuk');
         //add this line for join
         $this->datatables->join('bahan', 'bahan_masuk.id_bahan = bahan.id');
         $this->datatables->add_column('action', anchor(site_url('bahan_masuk/read/$1'), 'Read') . " | " . anchor(site_url('bahan_masuk/update/$1'), 'Update') . " | " . anchor(site_url('bahan_masuk/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        return $this->datatables->generate();
+    }
+    function json()
+    {
+        $this->datatables->select('bahan_masuk.id as id,bahan.id as idbahan, id_bahan,tgl_masuk,ball,kg,asal_bahan');
+        $this->datatables->from('bahan_masuk');
+        //add this line for join
+        $this->datatables->join('bahan', 'bahan_masuk.id_bahan = bahan.id');
+        $this->datatables->add_column('action', anchor(site_url('bahan_masuk/read/$1'), 'Read'), 'id');
         return $this->datatables->generate();
     }
 

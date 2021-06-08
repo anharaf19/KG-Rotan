@@ -41,14 +41,14 @@
                     <input type="text" class="form-control" name="no_spk" id="no_spk" placeholder="No Spk" value="<?php echo $no_spk; ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="int">Id Po Pabrik <?php echo form_error('id_po_pabrik') ?></label>
-                    <select name="id_po_pabrik" id="id_po_pabrik" class="form-control">
+                    <label for="int">Id Po Pabrik <?php echo form_error('id_detail_po_pabrik') ?></label>
+                    <select name="id_detail_po_pabrik" id="id_detail_po_pabrik" class="form-control">
                         <?php
                         foreach ($lihatpabrik as $row => $data) {
                         ?>
-                            <option value=" <?php echo $data['id'] ?>" <?php if (isset($data['id']) && $data['id'] == $id_po_pabrik) {
-                                                                            echo 'selected';
-                                                                        } ?>>
+                            <option value=" <?php echo $data['id_detail_po_pabrik'] ?>" <?php if (isset($data['id_detail_po_pabrik']) && $data['id_detail_po_pabrik'] == $id_detail_po_pabrik) {
+                                                                                            echo 'selected';
+                                                                                        } ?>>
                                 <?php {
                                     echo " No PO : ";
                                     echo $data['no_po'];
@@ -85,10 +85,10 @@
                     <label for="date">Tgl Selesai <?php echo form_error('tgl_selesai') ?></label>
                     <input type="text" class="form-control" name="tgl_selesai" id="tgl_selesai" placeholder="Tgl Selesai" value="<?php echo $tgl_selesai; ?>" />
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="varchar">Status <?php echo form_error('status') ?></label>
                     <input type="text" class="form-control" name="status" id="status" placeholder="Status" value="<?php echo $status; ?>" />
-                </div>
+                </div> -->
                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
                 <a href="<?php echo site_url('spk') ?>" class="btn btn-default">Cancel</a>

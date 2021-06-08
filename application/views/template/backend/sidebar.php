@@ -26,76 +26,132 @@
     <?php if ($this->session->userdata('jabatan') == "SuperAdmin") { ?>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-header">Transaksi</li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('po') ?>" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 PO
-                <span class="badge badge-info right">2</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('po') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PO</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('po_pabrik') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PO Pabrik</p>
+                </a>
+              </li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('po_pabrik') ?>" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+          <li class="nav-item menu">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                PO_Pabrik
-                <span class="badge badge-info right">2</span>
+                Bahan
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('bahan_masuk') ?>" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('bahan') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bahan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('bahan_masuk') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bahan Masuk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('bahan_rendam') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bahan Rendam</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('ambil_bahan') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ambil Bahan</p>
+                </a>
+              </li>
+            </ul>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Bahan Masuk
+                Spk
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('bahan_rendam') ?>" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('spk') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SPK</p>
+                </a>
+              </li>
+            </ul>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Bahan Rendam
+                Gudang
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('spk') ?>" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('penyimpanan') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('simpan') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kirim</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('warehouse') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Warehouse</p>
+                </a>
+              </li>
+            </ul>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                SPK
+                Pengiriman
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('pengiriman') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengiriman</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('invoice') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Invoice</p>
+                </a>
+              </li>
+            </ul>
           </li>
-          <li class="nav-header">Dummy</li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('detail_po') ?>" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Detail PO
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('detail_spk') ?>" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Detail SPK
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('detail_harga') ?>" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Detail Harga
-              </p>
-            </a>
-          </li>
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
           <li class="nav-header">----</li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
@@ -113,12 +169,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url('bahan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Bahan</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?php echo base_url('pabrik') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pabrik</p>
@@ -128,12 +178,6 @@
                 <a href="<?php echo base_url('sub') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sub</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('pabrik') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pabrik</p>
                 </a>
               </li>
               <li class="nav-item">

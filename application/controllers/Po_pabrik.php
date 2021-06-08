@@ -40,10 +40,7 @@ class Po_pabrik extends CI_Controller
             $data = array(
                 'id' => $row->id,
                 'id_pabrik' => $row->id_pabrik,
-
-                'no_po' => $row->no_po,
-                'no_item' => $row->no_item,
-                'qty' => $row->qty,
+                'no_po' => $row->no_po
             );
             $this->load->view('po_pabrik/po_pabrik_read', $data);
         } else {
@@ -59,10 +56,7 @@ class Po_pabrik extends CI_Controller
             'action' => site_url('po_pabrik/create_action'),
             'id' => set_value('id'),
             'id_pabrik' => set_value('id_pabrik'),
-
             'no_po' => set_value('no_po'),
-            'no_item' => set_value('no_item'),
-            'qty' => set_value('qty'),
             'lihatpabrik' => $this->Po_pabrik_model->lihatpabrik(),
             'lihatpo' => $this->Po_pabrik_model->lihatpo()
 
@@ -77,17 +71,16 @@ class Po_pabrik extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            $fourRandomDigit = mt_rand(1000, 9999);
             $data = array(
+                'id' => $fourRandomDigit,
                 'id_pabrik' => $this->input->post('id_pabrik', TRUE),
-
-                'no_po' => $this->input->post('no_po', TRUE),
-                'no_item' => $this->input->post('no_item', TRUE),
-                'qty' => $this->input->post('qty', TRUE),
+                'no_po' => $this->input->post('no_po', TRUE)
             );
 
             $this->Po_pabrik_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('po_pabrik'));
+            $this->load->view('detail_po_pabrik/detail_po_pabrik_formmulti', $data);
         }
     }
 
@@ -102,8 +95,6 @@ class Po_pabrik extends CI_Controller
                 'id' => set_value('id', $row->id),
                 'id_pabrik' => set_value('id_pabrik', $row->id_pabrik),
                 'no_po' => set_value('no_po', $row->no_po),
-                'no_item' => set_value('no_item', $row->no_item),
-                'qty' => set_value('qty', $row->qty),
                 'lihatpabrik' => $this->Po_pabrik_model->lihatpabrik(),
                 'lihatpo' => $this->Po_pabrik_model->lihatpo()
             );
@@ -124,8 +115,6 @@ class Po_pabrik extends CI_Controller
             $data = array(
                 'id_pabrik' => $this->input->post('id_pabrik', TRUE),
                 'no_po' => $this->input->post('no_po', TRUE),
-                'no_item' => $this->input->post('no_item', TRUE),
-                'qty' => $this->input->post('qty', TRUE),
             );
 
             $this->Po_pabrik_model->update($this->input->post('id', TRUE), $data);
@@ -152,8 +141,6 @@ class Po_pabrik extends CI_Controller
     {
         $this->form_validation->set_rules('id_pabrik', 'id pabrik', 'trim|required');
         $this->form_validation->set_rules('no_po', 'no po', 'trim|required');
-        $this->form_validation->set_rules('no_item', 'no item', 'trim|required');
-        $this->form_validation->set_rules('qty', 'qty', 'trim|required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

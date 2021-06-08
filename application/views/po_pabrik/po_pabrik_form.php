@@ -55,16 +55,6 @@
                         ?>
                     </select>
                 </div>
-
-
-                <div class="form-group">
-                    <label for="int">No Item <?php echo form_error('no_item') ?></label>
-                    <input type="text" class="form-control" name="no_item" id="no_item" placeholder="No Item" value="<?php echo $no_item; ?>" />
-                </div>
-                <div class="form-group">
-                    <label for="int">Qty <?php echo form_error('qty') ?></label>
-                    <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
-                </div>
                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
                 <a href="<?php echo site_url('po_pabrik') ?>" class="btn btn-default">Cancel</a>

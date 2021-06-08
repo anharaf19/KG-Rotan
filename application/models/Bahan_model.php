@@ -16,12 +16,22 @@ class Bahan_model extends CI_Model
     }
 
     // datatables
-    function json() {
+    function jsonIsAdmin()
+    {
         $this->datatables->select('id,nama,total_kg,total_ball,ket');
         $this->datatables->from('bahan');
         //add this line for join
         //$this->datatables->join('table2', 'bahan.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('bahan/read/$1'),'Read')." | ".anchor(site_url('bahan/update/$1'),'Update')." | ".anchor(site_url('bahan/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        $this->datatables->add_column('action', anchor(site_url('bahan/read/$1'), 'Read') . " | " . anchor(site_url('bahan/update/$1'), 'Update') . " | " . anchor(site_url('bahan/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        return $this->datatables->generate();
+    }
+    function json()
+    {
+        $this->datatables->select('id,nama,total_kg,total_ball,ket');
+        $this->datatables->from('bahan');
+        //add this line for join
+        //$this->datatables->join('table2', 'bahan.field = table2.field');
+        $this->datatables->add_column('action', anchor(site_url('bahan/read/$1'), 'Read'), 'id');
         return $this->datatables->generate();
     }
 
@@ -38,27 +48,29 @@ class Bahan_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('total_kg', $q);
-	$this->db->or_like('total_ball', $q);
-	$this->db->or_like('ket', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('total_kg', $q);
+        $this->db->or_like('total_ball', $q);
+        $this->db->or_like('ket', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('total_kg', $q);
-	$this->db->or_like('total_ball', $q);
-	$this->db->or_like('ket', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('total_kg', $q);
+        $this->db->or_like('total_ball', $q);
+        $this->db->or_like('ket', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -82,6 +94,10 @@ class Bahan_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function lihattotal()
+    {
+        return $this->db->query("select sum(total_kg) as total_kg,sum(total_ball)as total_ball from bahan")->row();
+    }
 }
 
 /* End of file Bahan_model.php */

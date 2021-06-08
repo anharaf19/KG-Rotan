@@ -30,7 +30,12 @@ class Bahan_masuk extends CI_Controller
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->Bahan_masuk_model->json();
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin') {
+            echo $this->Bahan_masuk_model->jsonIsAdmin();
+        } else {
+            echo $this->Bahan_masuk_model->json();
+        }
     }
 
     public function read($id)

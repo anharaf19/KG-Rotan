@@ -16,12 +16,13 @@ class Penyimpanan_model extends CI_Model
     }
 
     // datatables
-    function json() {
-        $this->datatables->select('id,id_po_pabrik,no_po,no_item,total_qty,status');
+    function json()
+    {
+        $this->datatables->select('id,id_pabrik,no_item,total_qty,status');
         $this->datatables->from('penyimpanan');
         //add this line for join
         //$this->datatables->join('table2', 'penyimpanan.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('penyimpanan/read/$1'),'Read')." | ".anchor(site_url('penyimpanan/update/$1'),'Update')." | ".anchor(site_url('penyimpanan/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        $this->datatables->add_column('action', anchor(site_url('penyimpanan/read/$1'), 'Read') . " | " . anchor(site_url('penyimpanan/update/$1'), 'Update') . " | " . anchor(site_url('penyimpanan/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
 
@@ -38,29 +39,31 @@ class Penyimpanan_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('id_po_pabrik', $q);
-	$this->db->or_like('no_po', $q);
-	$this->db->or_like('no_item', $q);
-	$this->db->or_like('total_qty', $q);
-	$this->db->or_like('status', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_po_pabrik', $q);
+        $this->db->or_like('no_po', $q);
+        $this->db->or_like('no_item', $q);
+        $this->db->or_like('total_qty', $q);
+        $this->db->or_like('status', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('id_po_pabrik', $q);
-	$this->db->or_like('no_po', $q);
-	$this->db->or_like('no_item', $q);
-	$this->db->or_like('total_qty', $q);
-	$this->db->or_like('status', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_po_pabrik', $q);
+        $this->db->or_like('no_po', $q);
+        $this->db->or_like('no_item', $q);
+        $this->db->or_like('total_qty', $q);
+        $this->db->or_like('status', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -83,7 +86,6 @@ class Penyimpanan_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Penyimpanan_model.php */

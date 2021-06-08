@@ -30,7 +30,12 @@ class Ambil_bahan extends CI_Controller
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->Ambil_bahan_model->json();
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin') {
+            echo $this->Ambil_bahan_model->jsonIsAdmin();
+        } else {
+            echo $this->Ambil_bahan_model->json();
+        }
     }
 
     public function read($id)

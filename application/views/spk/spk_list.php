@@ -42,7 +42,6 @@
                     <tr>
                         <th width="80px">No</th>
                         <th>No Spk</th>
-                        <th>Id Pabrik</th>
                         <th>Id Sub</th>
                         <th>Tgl Mulai</th>
                         <th>Tgl Selesai</th>
@@ -97,8 +96,6 @@
                         "orderable": false
                     }, {
                         "data": "no_spk"
-                    }, {
-                        "data": "id_pabrik"
                     }, {
                         "data": "id_sub"
                     }, {

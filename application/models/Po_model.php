@@ -92,6 +92,10 @@ class Po_model extends CI_Model
     {
         return $this->db->query("select * from pembeli")->result_array();
     }
+    function lihatdetailpo($nopo)
+    {
+        return $this->db->query("select * from detail_po where no_po = '$nopo'")->result();
+    }
 }
 
 /* End of file Po_model.php */

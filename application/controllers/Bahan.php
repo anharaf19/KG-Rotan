@@ -20,8 +20,12 @@ class Bahan extends CI_Controller
     public function index()
     {
         $jabatan = $this->session->userdata('jabatan');
+        $data = array(
+            'lihattotal' => $this->Bahan_model->lihattotal()
+        );
+
         if ($jabatan == 'SuperAdmin' || $jabatan == 'Bahan') {
-            $this->load->view('bahan/bahan_list');
+            $this->load->view('bahan/bahan_list', $data);
         } else {
             redirect(base_url('tidakadaakses'));
         }
@@ -30,7 +34,12 @@ class Bahan extends CI_Controller
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->Bahan_model->json();
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin') {
+            echo $this->Bahan_model->jsonIsAdmin();
+        } else {
+            echo $this->Bahan_model->json();
+        }
     }
 
     public function read($id)

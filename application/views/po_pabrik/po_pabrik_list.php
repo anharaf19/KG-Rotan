@@ -41,12 +41,8 @@
                 <thead>
                     <tr>
                         <th width="80px">No</th>
-                        <th>Nama</th>
-                        <th>No Po</th>
-
-                        <th>No Po</th>
-                        <th>No Item</th>
-                        <th>Qty</th>
+                        <th>No PO</th>
+                        <th>Pabrik</th>
                         <th width="200px">Action</th>
                     </tr>
                 </thead>
@@ -99,12 +95,6 @@
                         "data": "no_po"
                     }, {
                         "data": "nama"
-                    }, {
-                        "data": "no_po"
-                    }, {
-                        "data": "no_item"
-                    }, {
-                        "data": "qty"
                     },
                     {
                         "data": "action",

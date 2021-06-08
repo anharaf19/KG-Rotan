@@ -43,11 +43,14 @@ class PabrikQC extends CI_Controller
     public function addqty($id)
     {
         $rows = $this->Pabrikqc_model->lihatspkperid($id);
+        $id_pabrik = $this->session->userdata('id_pabrik');
+        $no_item = set_value('no_item', $rows->no_item);
+        $row = $this->Pabrikqc_model->getidpenyimpananperitem($id_pabrik, $no_item);
         $dataw = array(
             'id' => set_value('id', $rows->id),
             'no_item' => set_value('no_item', $rows->no_item),
             'no_spk' => set_value('no_spk', $rows->no_spk),
-            'id_penyimpanan' => set_value('id_penyimpanan', $rows->id_penyimpanan)
+            'id_penyimpanan' => set_value('id', $row->id)
         );
 
         $this->load->view('pabrikqc/formqc', $dataw);

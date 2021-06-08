@@ -40,11 +40,11 @@ class Po extends CI_Controller
             $data = array(
                 'id' => $row->id,
                 'no_po' => $row->no_po,
-                'po' => $row->po,
                 'id_pembeli' => $row->id_pembeli,
                 'tgl_mulai' => $row->tgl_mulai,
                 'tgl_selesai' => $row->tgl_selesai,
                 'ket' => $row->ket,
+                'lihatdetailpo' => $this->Po_model->lihatdetailpo($row->no_po)
             );
             $this->load->view('po/po_read', $data);
         } else {
