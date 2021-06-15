@@ -40,6 +40,12 @@ class Spk extends CI_Controller
             echo $this->Spk_model->json($id_pabrik);
         }
     }
+    public function jsonno_item()
+    {
+        header('Content-Type: application/json');
+        echo $this->Spk_model->jsonnoitem();
+    }
+
 
     public function read($id)
     {
@@ -48,7 +54,7 @@ class Spk extends CI_Controller
             $data = array(
                 'id' => $row->id,
                 'no_spk' => $row->no_spk,
-                'id_detail_po_pabrik' => $row->id_detail_po_pabrik,
+                'id_po_pabrik' => $row->id_po_pabrik,
                 'id_sub' => $row->id_sub,
                 'tgl_mulai' => $row->tgl_mulai,
                 'tgl_selesai' => $row->tgl_selesai,
@@ -61,6 +67,17 @@ class Spk extends CI_Controller
             redirect(site_url('spk'));
         }
     }
+    public function selesai()
+    {
+
+        $status = 'Selesai';
+        $data = array(
+            'status' => $status
+        );
+        $this->Spk_model->update($this->input->post('id', TRUE), $data);
+        $this->session->set_flashdata('message', 'Update Record Success');
+        redirect(base_url('spk'));
+    }
 
     public function create()
     {
@@ -69,7 +86,7 @@ class Spk extends CI_Controller
             'action' => site_url('spk/create_action'),
             'id' => set_value('id'),
             'no_spk' => set_value('no_spk'),
-            'id_detail_po_pabrik' => set_value('id_detail_po_pabrik'),
+            'id_po_pabrik' => set_value('id_po_pabrik'),
             'id_sub' => set_value('id_sub'),
             'tgl_mulai' => set_value('tgl_mulai'),
             'tgl_selesai' => set_value('tgl_selesai'),
@@ -90,7 +107,7 @@ class Spk extends CI_Controller
         } else {
             $data = array(
                 'no_spk' => $this->input->post('no_spk', TRUE),
-                'id_detail_po_pabrik' => $this->input->post('id_detail_po_pabrik', TRUE),
+                'id_po_pabrik' => $this->input->post('id_po_pabrik', TRUE),
                 'id_sub' => $this->input->post('id_sub', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
@@ -113,7 +130,7 @@ class Spk extends CI_Controller
                 'action' => site_url('spk/update_action'),
                 'id' => set_value('id', $row->id),
                 'no_spk' => set_value('no_spk', $row->no_spk),
-                'id_detail_po_pabrik' => set_value('id_detail_po_pabrik', $row->id_detail_po_pabrik),
+                'id_po_pabrik' => set_value('id_po_pabrik', $row->id_po_pabrik),
                 'id_sub' => set_value('id_sub', $row->id_sub),
                 'tgl_mulai' => set_value('tgl_mulai', $row->tgl_mulai),
                 'tgl_selesai' => set_value('tgl_selesai', $row->tgl_selesai),
@@ -138,7 +155,7 @@ class Spk extends CI_Controller
         } else {
             $data = array(
                 'no_spk' => $this->input->post('no_spk', TRUE),
-                'id_detail_po_pabrik' => $this->input->post('id_detail_po_pabrik', TRUE),
+                'id_po_pabrik' => $this->input->post('id_po_pabrik', TRUE),
                 'id_sub' => $this->input->post('id_sub', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
@@ -168,7 +185,7 @@ class Spk extends CI_Controller
     public function _rules()
     {
         $this->form_validation->set_rules('no_spk', 'no spk', 'trim|required');
-        $this->form_validation->set_rules('id_detail_po_pabrik', 'id po pabrik', 'trim|required');
+        $this->form_validation->set_rules('id_po_pabrik', 'id po pabrik', 'trim|required');
         $this->form_validation->set_rules('id_sub', 'id sub', 'trim|required');
         $this->form_validation->set_rules('tgl_mulai', 'tgl mulai', 'trim|required');
         $this->form_validation->set_rules('tgl_selesai', 'tgl selesai', 'trim|required');
@@ -213,7 +230,7 @@ class Spk extends CI_Controller
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
             xlsWriteLabel($tablebody, $kolombody++, $data->no_spk);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_detail_po_pabrik);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_po_pabrik);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_sub);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_mulai);
             xlsWriteLabel($tablebody, $kolombody++, $data->tgl_selesai);

@@ -38,7 +38,12 @@
                     <td><?php echo $ket; ?></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        <form action="<?php echo base_url('po/selesai') ?>" method="post">
+                            <input type="hidden" name='id' value="<?php echo $id; ?>" />
+                            <button type="submit" class="btn btn-primary">Selesai</button>
+                        </form>
+                    </td>
                     <td><a href="<?php echo site_url('po') ?>" class="btn btn-default">Cancel</a></td>
                 </tr>
             </table>

@@ -30,6 +30,13 @@ class Detail_spk extends CI_Controller
         header('Content-Type: application/json');
         echo $this->Detail_spk_model->json();
     }
+    function get_no_item()
+    {
+
+        $id_po_pabrik = $this->input->post('id_po_pabrik');
+        $data = $this->Detail_spk_model->get_no_item($id_po_pabrik)->result();
+        echo json_encode($data);
+    }
 
     public function read($id)
     {

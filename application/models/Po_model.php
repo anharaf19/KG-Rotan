@@ -16,7 +16,7 @@ class Po_model extends CI_Model
     }
 
     // datatables
-    function json()
+    function jsonIsAdmin()
     {
         $this->datatables->select('po.id as id, no_po ,pembeli.id as idpembeli,nama,tgl_mulai ,tgl_selesai  ,po.ket as keterangan');
         $this->datatables->from('po');
@@ -25,6 +25,16 @@ class Po_model extends CI_Model
         $this->datatables->add_column('action', anchor(site_url('po/read/$1'), 'Read') . " | " . anchor(site_url('po/update/$1'), 'Update') . " | " . anchor(site_url('po/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
+    function json()
+    {
+        $this->datatables->select('po.id as id, no_po ,pembeli.id as idpembeli,nama,tgl_mulai ,tgl_selesai  ,po.ket as keterangan');
+        $this->datatables->from('po');
+        //add this line for join
+        $this->datatables->join('pembeli', 'po.id_pembeli = pembeli.id');
+        $this->datatables->add_column('action', anchor(site_url('po/read/$1'), 'Read'), 'id');
+        return $this->datatables->generate();
+    }
+
 
     // get all
     function get_all()

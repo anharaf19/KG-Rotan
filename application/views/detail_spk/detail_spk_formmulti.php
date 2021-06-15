@@ -26,12 +26,14 @@
                 <button type="button" id="btn-reset-form">Reset Form</button><br><br>
                 <b>Item ke 1 :</b>
                 <div class="form-group">
+                    <input type="text" class="form-control" name="id_po_pabrik[]" placeholder="Id Spk" value="<?php echo $id_po_pabrik ?>" />
                     <label for="int">No SPK</label>
                     <input type="text" class="form-control" name="no_spk[]" id="no_spk" placeholder="Id Spk" value="<?php echo $no_spk ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">No Item</label>
-                    <input type="text" class="form-control" name="no_item[]" id="no_item" placeholder="No Item" />
+                    <select id="no_item" name="no_item[]" class="form-control"></select>
+                    <!-- <input type="text" class="form-control" name="no_item[]" id="no_item" placeholder="No Item" /> -->
                 </div>
                 <div class="form-group">
                     <label for="varchar">QTY</label>
@@ -70,7 +72,8 @@
                             '</div>' +
                             '<div class="form-group">' +
                             '<label for="varchar">No Item</label>' +
-                            '<input type="text" class="form-control" name="no_item[]" id="no_item" placeholder="No Item" />' +
+                            // '<select id="no_item" name="no_item[]" class="form-control"></select>' +
+                            '<input type="text" class="form-control" name="no_item[]"  placeholder="No Item" />' +
                             '</div>' +
                             '<div class="form-group">' +
                             '<label for="varchar">QTY</label>' +
@@ -92,11 +95,24 @@
                         $("#jumlah-form").val(nextform); // Ubah value textbox jumlah-form dengan variabel nextform
                     });
 
+
                     // Buat fungsi untuk mereset form ke semula
                     $("#btn-reset-form").click(function() {
                         $("#insert-form").html(""); // Kita kosongkan isi dari div insert-form
                         $("#jumlah-form").val("1"); // Ubah kembali value jumlah form menjadi 1
                     });
+
+
+                    var $select = $('#no_item');
+
+                    $.getJSON('<?php echo base_url("detail_spk/get_no_item"); ?>', function(data) {
+                        $select.html('');
+                        for (var i = 0; i < data.length; i++) {
+                            $select.append('<option id="' + data[i]['no_item'] + '">' + data[i]['no_item'] + '</option>');
+                        }
+                    });
+
+
                 });
             </script>
         </section>

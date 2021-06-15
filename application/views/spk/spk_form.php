@@ -41,19 +41,17 @@
                     <input type="text" class="form-control" name="no_spk" id="no_spk" placeholder="No Spk" value="<?php echo $no_spk; ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="int">Id Po Pabrik <?php echo form_error('id_detail_po_pabrik') ?></label>
-                    <select name="id_detail_po_pabrik" id="id_detail_po_pabrik" class="form-control">
+                    <label for="int">Id Po Pabrik <?php echo form_error('id_po_pabrik') ?></label>
+                    <select name="id_po_pabrik" id="id_po_pabrik" class="form-control">
                         <?php
                         foreach ($lihatpabrik as $row => $data) {
                         ?>
-                            <option value=" <?php echo $data['id_detail_po_pabrik'] ?>" <?php if (isset($data['id_detail_po_pabrik']) && $data['id_detail_po_pabrik'] == $id_detail_po_pabrik) {
-                                                                                            echo 'selected';
-                                                                                        } ?>>
+                            <option value=" <?php echo $data['id_po'] ?>" <?php if (isset($data['id_po']) && $data['id_po'] == $id) {
+                                                                                echo 'selected';
+                                                                            } ?>>
                                 <?php {
-                                    echo " No PO : ";
+
                                     echo $data['no_po'];
-                                    echo " No Item : ";
-                                    echo $data['no_item'];
                                 }; ?> </option>
                         <?php
                         }

@@ -25,6 +25,12 @@ class Detail_spk_model extends CI_Model
         $this->datatables->add_column('action', anchor(site_url('detail_spk/read/$1'), 'Read') . " | " . anchor(site_url('detail_spk/update/$1'), 'Update') . " | " . anchor(site_url('detail_spk/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
+    function get_no_item($id_po_pabrik)
+    {
+        $query = $this->db->get('detail_po_pabrik');
+        $query = $this->db->where('id_po_pabrik', $id_po_pabrik);
+        return $query;
+    }
 
     // get all
     function get_all()

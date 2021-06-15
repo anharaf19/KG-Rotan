@@ -30,7 +30,13 @@ class Po extends CI_Controller
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->Po_model->json();
+        // echo $this->Po_model->json();
+        $jabatan = $this->session->userdata('jabatan');
+        if ($jabatan == 'SuperAdmin') {
+            echo $this->Po_model->jsonIsAdmin();
+        } else {
+            echo $this->Po_model->json();
+        }
     }
 
     public function read($id)
@@ -83,7 +89,7 @@ class Po extends CI_Controller
                 'id_pembeli' => $this->input->post('id_pembeli', TRUE),
                 'tgl_mulai' => $this->input->post('tgl_mulai', TRUE),
                 'tgl_selesai' => $this->input->post('tgl_selesai', TRUE),
-                'ket' => '0',
+                'ket' => 'Belum Selesai',
             );
 
             $this->Po_model->insert($data);
@@ -136,6 +142,21 @@ class Po extends CI_Controller
             redirect(site_url('po'));
         }
     }
+    public function update_actionket()
+    {
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id', TRUE));
+        } else {
+            $data = array(
+                'ket' => 'Selesai',
+            );
+
+            $this->Po_model->update($this->input->post('id', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Record Success');
+            redirect(site_url('po'));
+        }
+    }
 
     public function delete($id)
     {
@@ -149,6 +170,17 @@ class Po extends CI_Controller
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('po'));
         }
+    }
+    public function selesai()
+    {
+
+        $status = 'Selesai';
+        $data = array(
+            'ket' => $status
+        );
+        $this->Po_model->update($this->input->post('id', TRUE), $data);
+        $this->session->set_flashdata('message', 'Update Record Success');
+        redirect(base_url('po'));
     }
 
     public function _rules()

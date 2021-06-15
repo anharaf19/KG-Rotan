@@ -18,23 +18,21 @@ class Spk_model extends CI_Model
     // datatables
     function jsonIsAdmin()
     {
-        $this->datatables->select('spk.id as id,po_pabrik.id as id_po_pabrik, detail_po_pabrik.id as id_detail_po_pabrik, no_spk , sub.id as id_sub, tgl_mulai, tgl_selesai, spk.status as status');
+        $this->datatables->select('spk.id as id,po_pabrik.id as id_po_pabrik, po_pabrik.id as id_po_pabrik, no_spk , sub.id as id_sub, tgl_mulai, tgl_selesai, spk.status as status');
         $this->datatables->from('spk');
         //add this line for join
         $this->datatables->join('sub', 'spk.id_sub = sub.id');
-        $this->datatables->join('detail_po_pabrik', 'spk.id_detail_po_pabrik = detail_po_pabrik.id');
-        $this->datatables->join('po_pabrik', 'detail_po_pabrik.id_po_pabrik = po_pabrik.id');
+        $this->datatables->join('po_pabrik', 'spk.id_po_pabrik = po_pabrik.id');
         $this->datatables->add_column('action', anchor(site_url('spk/read/$1'), 'Read') . " | " . anchor(site_url('spk/update/$1'), 'Update') . " | " . anchor(site_url('spk/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
     function json($id_pabrik)
     {
-        $this->datatables->select('spk.id as id, po_pabrik.id as id_po_pabrik, detail_po_pabrik.id as id_detail_po_pabrik, no_spk , sub.id as id_sub, tgl_mulai, tgl_selesai, spk.status as status');
+        $this->datatables->select('spk.id as id, po_pabrik.id as id_po_pabrik, po_pabrik.id as id_po_pabrik, no_spk , sub.id as id_sub, tgl_mulai, tgl_selesai, spk.status as status');
         $this->datatables->from('spk');
         //add this line for join
         $this->datatables->join('sub', 'spk.id_sub = sub.id');
-        $this->datatables->join('detail_po_pabrik', 'spk.id_detail_po_pabrik = detail_po_pabrik.id');
-        $this->datatables->join('po_pabrik', 'detail_po_pabrik.id_po_pabrik = po_pabrik.id');
+        $this->datatables->join('po_pabrik', 'spk.id_po_pabrik = po_pabrik.id');
         $this->datatables->where('id_pabrik', $id_pabrik);
         $this->datatables->add_column('action', anchor(site_url('spk/read/$1'), 'Read'), 'id');
         return $this->datatables->generate();
@@ -109,11 +107,22 @@ class Spk_model extends CI_Model
     }
     function lihatpabrik($id_pabrik)
     {
-        return $this->db->query("select po_pabrik.id as id,po_pabrik.id_pabrik as id_pabrik, po_pabrik.no_po, detail_po_pabrik.id as id_detail_po_pabrik, detail_po_pabrik.no_item,detail_po_pabrik.qty from po_pabrik join detail_po_pabrik on detail_po_pabrik.id_po_pabrik = po_pabrik.id where id_pabrik = $id_pabrik")->result_array();
+        return $this->db->query("select po_pabrik.id as id_po,po_pabrik.id_pabrik as id_pabrik, po_pabrik.no_po, detail_po_pabrik.id as id_detail_po_pabrik, detail_po_pabrik.no_item,detail_po_pabrik.qty from po_pabrik join detail_po_pabrik on detail_po_pabrik.id_po_pabrik = po_pabrik.id where id_pabrik = $id_pabrik")->result_array();
     }
     function lihatdetailspk($nospk)
     {
         return $this->db->query("select * from detail_spk where no_spk = '$nospk'")->result();
+    }
+    function jsonnoitem()
+    {
+        $this->datatables->select('no_item');
+        $this->datatables->from('po');
+        return $this->datatables->generate();
+    }
+    function get_no_item($id_po_pabrik)
+    {
+        $query = $this->db->get_where('po_pabrik',  $id_po_pabrik);
+        return $query;
     }
 }
 

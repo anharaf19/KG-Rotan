@@ -91,7 +91,7 @@ class Po_pabrik_model extends CI_Model
     }
     function lihatpo()
     {
-        return $this->db->query("select * from po")->result_array();
+        return $this->db->query("select * from po where ket='Belum Selesai'")->result_array();
     }
     function lihatpabrik()
     {
